@@ -1,18 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#C177C5E9"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TableRow android:layout_weight="1">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/city_color"
+            android:padding="5dp"
+            android:text="@string/city_moscow"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text=""
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="@string/gradus"
+            android:textSize="40dp" />
+
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/city_color"
+            android:padding="5dp"
+            android:text="@string/city_kazan"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text=""
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="@string/gradus"
+            android:textSize="40dp" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/city_color"
+            android:padding="5dp"
+            android:text="@string/city_orenburg"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text=""
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="@string/gradus"
+            android:textSize="40dp" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/city_color"
+            android:padding="5dp"
+            android:text="@string/city_tver"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text=""
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="@string/gradus"
+            android:textSize="40dp" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/city_color"
+            android:padding="5dp"
+            android:text="@string/city_rostov"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="+12"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="@string/gradus"
+            android:textSize="40dp" />
+    </TableRow>
+
+
+</TableLayout>

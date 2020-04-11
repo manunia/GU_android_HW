@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GU_android_HW</string>
+    <string name="city_moscow">Москва</string>
+    <string name="city_kazan">Казань</string>
+    <string name="gradus">\u2103</string>
+    <string name="city_orenburg">Оренбург</string>
+    <string name="city_tver">Тверь</string>
+    <string name="city_rostov">Ростов</string>
+
+
+</resources>
