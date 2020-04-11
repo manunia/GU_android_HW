@@ -7,5 +7,9 @@
     <string name="city_orenburg">Orenburg</string>
     <string name="city_tver">Tver</string>
     <string name="city_rostov">Rostov</string>
+    <string name="wind_speed">wind speed</string>
+    <string name="atmosphere_pressure">Atmosphere pressure</string>
+    <string name="submit">Submit</string>
+    <string name="select_info_to_show">Select info to show</string>
 
 </resources>
