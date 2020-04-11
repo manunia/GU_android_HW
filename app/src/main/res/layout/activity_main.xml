@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#C177C5E9"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="5dp">
 
     <TableRow android:layout_weight="1">
 
@@ -13,7 +13,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/city_moscow"
             android:textSize="40dp" />
 
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text=""
             android:textSize="40dp" />
 
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/gradus"
             android:textSize="40dp" />
 
@@ -42,7 +42,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/city_kazan"
             android:textSize="40dp" />
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text=""
             android:textSize="40dp" />
 
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/gradus"
             android:textSize="40dp" />
     </TableRow>
@@ -70,7 +70,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/city_orenburg"
             android:textSize="40dp" />
 
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text=""
             android:textSize="40dp" />
 
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/gradus"
             android:textSize="40dp" />
     </TableRow>
@@ -98,7 +98,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/city_tver"
             android:textSize="40dp" />
 
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text=""
             android:textSize="40dp" />
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/gradus"
             android:textSize="40dp" />
     </TableRow>
@@ -126,7 +126,7 @@
             android:layout_height="80dp"
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/city_rostov"
             android:textSize="40dp" />
 
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="+12"
             android:textSize="40dp" />
 
@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
-            android:padding="15dp"
+            android:padding="5dp"
             android:text="@string/gradus"
             android:textSize="40dp" />
     </TableRow>
