@@ -1,5 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -56,6 +57,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         showToast("onStart()");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        showToast("Повторный запуск!! - onRestoreInstanceState()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showToast("onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showToast("onPause()");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        showToast("onSaveInstanceState()");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showToast("onRestart()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        showToast("onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        showToast("onDestroy()");
     }
 
     public void showToast(String message) {
