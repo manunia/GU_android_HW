@@ -25,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
         submitButton = findViewById(R.id.submit_buton);
         textCity = findViewById(R.id.edit_city);
 
+        String instanceState;
+        if (savedInstanceState == null){
+            instanceState = "Первый запуск!";
+            showToast(instanceState + " - onCreate()");
+        }
+        else{
+            instanceState = "Повторный запуск!";
+            showToast(instanceState + " - onCreate()");
+        }
+
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +45,18 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     setContentView(R.layout.activity_main);
                 }
+
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showToast("onStart()");
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
