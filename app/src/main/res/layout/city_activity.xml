@@ -18,11 +18,12 @@
             android:textSize="40dp" />
 
         <TextView
+            android:id="@+id/moscowTemperature"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
             android:padding="5dp"
-            android:text=""
+            android:text="12"
             android:textSize="40dp" />
 
         <TextView
@@ -43,7 +44,16 @@
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
             android:padding="5dp"
-            android:text="@string/city_kazan"
+            android:text="@string/wind_speed"
+            android:textSize="40dp" />
+
+        <TextView
+            android:id="@+id/windSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="5"
             android:textSize="40dp" />
 
         <TextView
@@ -51,15 +61,7 @@
             android:layout_height="80dp"
             android:background="@color/temper_color"
             android:padding="5dp"
-            android:text=""
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text="@string/gradus"
+            android:text="@string/m_sec"
             android:textSize="40dp" />
     </TableRow>
 
@@ -71,80 +73,25 @@
             android:layout_marginBottom="10dp"
             android:background="@color/city_color"
             android:padding="5dp"
-            android:text="@string/city_orenburg"
-            android:textSize="40dp" />
+            android:text="@string/atmosphere_pressure"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@color/temper_color"
+            android:padding="5dp"
+            android:text="300"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:background="@color/temper_color"
             android:padding="5dp"
-            android:text=""
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text="@string/gradus"
-            android:textSize="40dp" />
-    </TableRow>
-
-    <TableRow android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/city_color"
-            android:padding="5dp"
-            android:text="@string/city_tver"
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text=""
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text="@string/gradus"
-            android:textSize="40dp" />
-    </TableRow>
-
-    <TableRow android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/city_color"
-            android:padding="5dp"
-            android:text="@string/city_rostov"
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text="+12"
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/temper_color"
-            android:padding="5dp"
-            android:text="@string/gradus"
-            android:textSize="40dp" />
+            android:text="@string/mm_rt_st"
+            android:textSize="20dp" />
     </TableRow>
 
 

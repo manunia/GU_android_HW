@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     EditText textCity;
     String enteredText;
 
+    CheckBox windSpeedcheck;
+    CheckBox pressureCheck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         submitButton = findViewById(R.id.submit_buton);
         textCity = findViewById(R.id.edit_city);
+
+        windSpeedcheck = findViewById(R.id.windSpeedCheck);
+        pressureCheck = findViewById(R.id.pressureCheck);
 
         String instanceState;
         if (savedInstanceState == null){
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Invalid enter", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent("showCityActivity");
+                    intent.putExtra("isWindChecked", windSpeedcheck.isChecked());
+                    intent.putExtra("isPressureChecked", pressureCheck.isChecked());
                     startActivity(intent);
                 }
 
