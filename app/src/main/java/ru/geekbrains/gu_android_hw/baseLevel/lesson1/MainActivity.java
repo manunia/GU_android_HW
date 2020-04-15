@@ -2,6 +2,7 @@ package ru.geekbrains.gu_android_hw.baseLevel.lesson1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 if (enteredText.length() == 0) {
                     Toast.makeText(MainActivity.this, "Invalid enter", Toast.LENGTH_SHORT).show();
                 } else {
-                    setContentView(R.layout.activity_main);
+                    Intent intent = new Intent("showCityActivity");
+                    startActivity(intent);
                 }
 
             }

@@ -15,8 +15,13 @@
         <activity android:name=".baseLevel.lesson1.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".baseLevel.lesson1.CityActivity">
+            <intent-filter>
+                <action android:name="showCityActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
     </application>
