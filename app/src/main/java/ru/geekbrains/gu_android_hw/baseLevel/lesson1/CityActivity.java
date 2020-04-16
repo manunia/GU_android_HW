@@ -2,6 +2,7 @@ package ru.geekbrains.gu_android_hw.baseLevel.lesson1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -105,6 +106,7 @@ public class CityActivity extends AppCompatActivity {
     }
 
     public void showToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "CityActivity " + message, Toast.LENGTH_SHORT).show();
+        Log.d("Life_cicle_stack", "CityActivity " + message);
     }
 }
