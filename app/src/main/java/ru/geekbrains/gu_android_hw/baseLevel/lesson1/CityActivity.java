@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +22,11 @@ public class CityActivity extends AppCompatActivity {
     private int todayPressure = 740;
 
     TextView moscowTemperature;
-
     TextView moscowWindSpeed;
     TextView moscowPressure;
+
+    TableRow windspeedRow;
+    TableRow pressureRow;
 
 
     @Override
@@ -32,9 +35,11 @@ public class CityActivity extends AppCompatActivity {
         setContentView(R.layout.city_activity);
 
         moscowTemperature = findViewById(R.id.moscowTemperature);
-
         moscowWindSpeed = findViewById(R.id.windSpeed);
         moscowPressure = findViewById(R.id.pressure);
+
+        windspeedRow = findViewById(R.id.windspeedRow);
+        pressureRow = findViewById(R.id.pressureRow);
 
         Intent intent = getIntent();
         boolean isWindChecked = intent.getBooleanExtra("isWindChecked",false);
@@ -54,12 +59,12 @@ public class CityActivity extends AppCompatActivity {
         if (isWindChecked) {
             moscowWindSpeed.setText(((Integer)todaySpeed).toString());
         } else {
-            moscowWindSpeed.setVisibility(View.INVISIBLE);
+            windspeedRow.setVisibility(View.INVISIBLE);
         }
         if (isPressureChecked) {
             moscowPressure.setText(((Integer)todayPressure).toString());
         } else {
-            moscowPressure.setVisibility(View.INVISIBLE);
+            pressureRow.setVisibility(View.INVISIBLE);
         }
 
     }
