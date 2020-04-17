@@ -1,6 +1,7 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,12 +18,12 @@ import ru.geekbrains.gu_android_hw.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button submitButton;
-    EditText textCity;
-    String enteredText;
+    private Button submitButton;
+    private EditText textCity;
+    private String enteredText;
 
-    CheckBox windSpeedcheck;
-    CheckBox pressureCheck;
+    private CheckBox windSpeedcheck;
+    private CheckBox pressureCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +36,12 @@ public class MainActivity extends AppCompatActivity {
         windSpeedcheck = findViewById(R.id.windSpeedCheck);
         pressureCheck = findViewById(R.id.pressureCheck);
 
-        String instanceState;
-        if (savedInstanceState == null){
-            instanceState = "Первый запуск!";
-            showToast(instanceState + " - onCreate()");
-        }
-        else{
-            instanceState = "Повторный запуск!";
-            showToast(instanceState + " - onCreate()");
-        }
+        showInstanceStateStatus(savedInstanceState);
 
+        submitButtonOnClick();
+    }
 
+    private void submitButtonOnClick() {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showInstanceStateStatus(@Nullable Bundle savedInstanceState) {
+        String instanceState;
+        if (savedInstanceState == null){
+            instanceState = "Первый запуск!";
+            showToast(instanceState + " - onCreate()");
+        }
+        else{
+            instanceState = "Повторный запуск!";
+            showToast(instanceState + " - onCreate()");
+        }
     }
 
     @Override

@@ -21,13 +21,12 @@ public class CityActivity extends AppCompatActivity {
     private int todaySpeed = 3;
     private int todayPressure = 740;
 
-    TextView moscowTemperature;
-    TextView moscowWindSpeed;
-    TextView moscowPressure;
+    private TextView moscowTemperature;
+    private TextView moscowWindSpeed;
+    private TextView moscowPressure;
 
-    TableRow windspeedRow;
-    TableRow pressureRow;
-
+    private TableRow windspeedRow;
+    private TableRow pressureRow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +44,22 @@ public class CityActivity extends AppCompatActivity {
         boolean isWindChecked = intent.getBooleanExtra("isWindChecked",false);
         boolean isPressureChecked = intent.getBooleanExtra("isPressureChecked",false);
 
+        showInstanceStateStatus(savedInstanceState);
+
+        moscowTemperature.setText(((Integer)todayTemperature).toString());
+        showParametr(isWindChecked,todaySpeed,moscowWindSpeed,windspeedRow);
+        showParametr(isPressureChecked,todayPressure,moscowPressure,pressureRow);
+    }
+    //show or hide selected param
+    private void showParametr(boolean isParametrChecked, int todayParam, TextView parametrText, TableRow parametrRow) {
+        if (isParametrChecked) {
+            parametrText.setText(((Integer)todayParam).toString());
+        } else {
+            parametrRow.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void showInstanceStateStatus(@Nullable Bundle savedInstanceState) {
         String instanceState;
         if (savedInstanceState == null){
             instanceState = "Первый запуск!";
@@ -54,20 +69,8 @@ public class CityActivity extends AppCompatActivity {
             instanceState = "Повторный запуск!";
             showToast(instanceState + " - onCreate()");
         }
-
-        moscowTemperature.setText(((Integer)todayTemperature).toString());
-        if (isWindChecked) {
-            moscowWindSpeed.setText(((Integer)todaySpeed).toString());
-        } else {
-            windspeedRow.setVisibility(View.INVISIBLE);
-        }
-        if (isPressureChecked) {
-            moscowPressure.setText(((Integer)todayPressure).toString());
-        } else {
-            pressureRow.setVisibility(View.INVISIBLE);
-        }
-
     }
+
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
