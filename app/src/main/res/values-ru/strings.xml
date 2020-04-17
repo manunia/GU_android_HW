@@ -15,6 +15,8 @@
     <string name="theme">Theme</string>
     <string name="location">location</string>
     <string name="temperature">Temperature</string>
+    <string name="m_sec">m/sec</string>
+    <string name="mm_rt_st">mm.rt.st</string>
 
 
 </resources>

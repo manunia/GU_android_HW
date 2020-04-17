@@ -32,12 +32,14 @@
             android:textSize="35dp" />
 
         <CheckBox
+            android:id="@+id/windSpeedCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wind_speed"
             android:textSize="35dp" />
 
         <CheckBox
+            android:id="@+id/pressureCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/atmosphere_pressure"
