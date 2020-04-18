@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ru.geekbrains.gu_android_hw.R;
 
-public class CityActivity extends AppCompatActivity {
+public class CityActivity extends AppCompatActivity implements Constants {
 
-    private int todayTemperature = 16;
-    private int todaySpeed = 3;
-    private int todayPressure = 740;
-
-    private TextView moscowTemperature;
-    private TextView moscowWindSpeed;
-    private TextView moscowPressure;
+    private TextView cityTemperature;
+    private TextView cityWindSpeed;
+    private TextView cityPressure;
+    private TextView cityName;
 
     private TableRow windspeedRow;
     private TableRow pressureRow;
@@ -33,22 +29,26 @@ public class CityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_activity);
 
-        moscowTemperature = findViewById(R.id.moscowTemperature);
-        moscowWindSpeed = findViewById(R.id.windSpeed);
-        moscowPressure = findViewById(R.id.pressure);
+        cityTemperature = findViewById(R.id.moscowTemperature);
+        cityWindSpeed = findViewById(R.id.windSpeed);
+        cityPressure = findViewById(R.id.pressure);
+        cityName = findViewById(R.id.cityName);
 
         windspeedRow = findViewById(R.id.windspeedRow);
         pressureRow = findViewById(R.id.pressureRow);
 
+        CityEntity city = (CityEntity) getIntent().getExtras().getSerializable(CREATE_CITY);
+
         Intent intent = getIntent();
-        boolean isWindChecked = intent.getBooleanExtra("isWindChecked",false);
-        boolean isPressureChecked = intent.getBooleanExtra("isPressureChecked",false);
+        boolean isWindChecked = intent.getBooleanExtra(WIND_SPEED_CHECK,false);
+        boolean isPressureChecked = intent.getBooleanExtra(PRESSURE_CHECK,false);
 
         showInstanceStateStatus(savedInstanceState);
 
-        moscowTemperature.setText(((Integer)todayTemperature).toString());
-        showParametr(isWindChecked,todaySpeed,moscowWindSpeed,windspeedRow);
-        showParametr(isPressureChecked,todayPressure,moscowPressure,pressureRow);
+        cityName.setText(city.getName());
+        cityTemperature.setText(((Integer)city.getTodayTemperature()).toString());
+        showParametr(isWindChecked,city.getTodaySpeed(), cityWindSpeed,windspeedRow);
+        showParametr(isPressureChecked,city.getTodayPressure(), cityPressure,pressureRow);
     }
     //show or hide selected param
     private void showParametr(boolean isParametrChecked, int todayParam, TextView parametrText, TableRow parametrRow) {
