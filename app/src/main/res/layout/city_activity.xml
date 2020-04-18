@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="5dp">
 
-    <TableRow android:layout_weight="1">
+    <TableRow>
 
         <TextView
             android:id="@+id/cityName"
@@ -37,7 +37,7 @@
 
     </TableRow>
 
-    <TableRow android:layout_weight="1"
+    <TableRow
         android:id="@+id/windspeedRow">
 
         <TextView
@@ -67,7 +67,7 @@
             android:textSize="40dp" />
     </TableRow>
 
-    <TableRow android:layout_weight="1"
+    <TableRow
         android:id="@+id/pressureRow">
 
         <TextView
@@ -97,5 +97,8 @@
             android:textSize="20dp" />
     </TableRow>
 
+    <Button
+        android:id="@+id/openBrouserButton"
+        android:text="Show more"></Button>
 
 </TableLayout>

@@ -1,9 +1,11 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,8 @@ public class CityActivity extends AppCompatActivity implements Constants {
     private TableRow windspeedRow;
     private TableRow pressureRow;
 
+    private Button openBrouserButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,8 @@ public class CityActivity extends AppCompatActivity implements Constants {
         windspeedRow = findViewById(R.id.windspeedRow);
         pressureRow = findViewById(R.id.pressureRow);
 
+        openBrouserButton = findViewById(R.id.openBrouserButton);
+
         CityEntity city = (CityEntity) getIntent().getExtras().getSerializable(CREATE_CITY);
 
         Intent intent = getIntent();
@@ -49,7 +55,23 @@ public class CityActivity extends AppCompatActivity implements Constants {
         cityTemperature.setText(((Integer)city.getTodayTemperature()).toString());
         showParametr(isWindChecked,city.getTodaySpeed(), cityWindSpeed,windspeedRow);
         showParametr(isPressureChecked,city.getTodayPressure(), cityPressure,pressureRow);
+
+        openBrouser();
     }
+
+    private void openBrouser() {
+        openBrouserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://yandex.ru/pogoda";
+                Uri uri = Uri.parse(url);
+                Intent browser = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(browser);
+
+            }
+        });
+    }
+
     //show or hide selected param
     private void showParametr(boolean isParametrChecked, int todayParam, TextView parametrText, TableRow parametrRow) {
         if (isParametrChecked) {
