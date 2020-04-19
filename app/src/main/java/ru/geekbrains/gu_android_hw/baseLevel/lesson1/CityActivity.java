@@ -33,6 +33,29 @@ public class CityActivity extends AppCompatActivity implements Constants {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_activity);
 
+        initFields();
+
+        showInstanceStateStatus(savedInstanceState);
+
+        getDataFromMainActivity();
+
+        openBrouser();
+    }
+
+    private void getDataFromMainActivity() {
+        CityEntity city = (CityEntity) getIntent().getExtras().getSerializable(CREATE_CITY);
+
+        Intent intent = getIntent();
+        boolean isWindChecked = intent.getBooleanExtra(WIND_SPEED_CHECK,false);
+        boolean isPressureChecked = intent.getBooleanExtra(PRESSURE_CHECK,false);
+
+        cityName.setText(city.getName());
+        cityTemperature.setText(((Integer)city.getTodayTemperature()).toString());
+        showParametr(isWindChecked,city.getTodaySpeed(), cityWindSpeed,windspeedRow);
+        showParametr(isPressureChecked,city.getTodayPressure(), cityPressure,pressureRow);
+    }
+
+    private void initFields() {
         cityTemperature = findViewById(R.id.moscowTemperature);
         cityWindSpeed = findViewById(R.id.windSpeed);
         cityPressure = findViewById(R.id.pressure);
@@ -42,21 +65,6 @@ public class CityActivity extends AppCompatActivity implements Constants {
         pressureRow = findViewById(R.id.pressureRow);
 
         openBrouserButton = findViewById(R.id.openBrouserButton);
-
-        CityEntity city = (CityEntity) getIntent().getExtras().getSerializable(CREATE_CITY);
-
-        Intent intent = getIntent();
-        boolean isWindChecked = intent.getBooleanExtra(WIND_SPEED_CHECK,false);
-        boolean isPressureChecked = intent.getBooleanExtra(PRESSURE_CHECK,false);
-
-        showInstanceStateStatus(savedInstanceState);
-
-        cityName.setText(city.getName());
-        cityTemperature.setText(((Integer)city.getTodayTemperature()).toString());
-        showParametr(isWindChecked,city.getTodaySpeed(), cityWindSpeed,windspeedRow);
-        showParametr(isPressureChecked,city.getTodayPressure(), cityPressure,pressureRow);
-
-        openBrouser();
     }
 
     private void openBrouser() {

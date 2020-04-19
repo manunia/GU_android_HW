@@ -99,6 +99,6 @@
 
     <Button
         android:id="@+id/openBrouserButton"
-        android:text="Show more"></Button>
+        android:text="Show more"/>
 
 </TableLayout>
