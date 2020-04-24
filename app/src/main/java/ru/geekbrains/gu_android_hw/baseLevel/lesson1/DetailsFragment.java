@@ -47,6 +47,11 @@ public class DetailsFragment extends Fragment {
         return city;
     }
 
+    // Получить индекс из списка (фактически из параметра)
+    public String getName() {
+        return getCity().getName();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

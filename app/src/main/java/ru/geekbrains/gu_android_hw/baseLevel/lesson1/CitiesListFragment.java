@@ -65,7 +65,7 @@ public class CitiesListFragment extends Fragment {
         } else {
             currentEntity = createCity();
         }
-        
+
         if (isLanscapeOrientation) {
             showDetails(currentEntity);
         }
@@ -103,7 +103,7 @@ public class CitiesListFragment extends Fragment {
     private void showDetails(CityEntity currentEntity) {
         if (isLanscapeOrientation) {
             DetailsFragment detail = (DetailsFragment) getFragmentManager().findFragmentById(R.id.city_details);
-            if (detail == null) {
+            if (detail == null || detail.getName() != currentEntity.getName()) {
                 detail = DetailsFragment.create(currentEntity);
 
                 // Выполняем транзакцию по замене фрагмента
@@ -112,6 +112,10 @@ public class CitiesListFragment extends Fragment {
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 ft.commit();
             }
+            Intent intent = new Intent();
+            intent.setClass(getActivity(),CityActivity.class);
+            intent.putExtra(Constants.CREATE_CITY,currentEntity);
+            startActivity(intent);
         } else {
             Intent intent = new Intent();
             intent.setClass(getActivity(),CityActivity.class);
