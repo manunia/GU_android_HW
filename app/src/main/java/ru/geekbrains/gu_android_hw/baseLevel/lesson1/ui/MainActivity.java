@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements Constants {
         // Установим адаптер
         ListAdapter adapter = new ListAdapter(data);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getDrawable(R.drawable.separator));
+        recyclerView.addItemDecoration(itemDecoration);
 
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
