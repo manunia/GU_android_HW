@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>Moscow</item>
+        <item>Rostov</item>
+        <item>Twer</item>
+        <item>Novgorod</item>
+        <item>Kazan</item>
+        <item>Samara</item>
+        <item>Orenburg</item>
+        <item>Voronez</item>
+        <item>Krasnonar</item>
+        <item>Orel</item>
+        <item>Kaliningrad</item>
+        <item>Lipetsk</item>
+        <item>Arhangelsk</item>
+        <item>Krasnoyarsk</item>
+        <item>Saratov</item>
+        <item>Novosibirsk</item>
+        <item>Omsk</item>
+        <item>Petropavlovsk</item>
+    </string-array>
+</resources>

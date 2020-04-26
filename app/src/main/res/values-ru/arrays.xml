@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>Москва</item>
+        <item>Ростов</item>
+        <item>Тверь</item>
+        <item>Новгород</item>
+        <item>Казань</item>
+        <item>Самара</item>
+        <item>Оренбург</item>
+        <item>Воронеж</item>
+        <item>Краснодар</item>
+        <item>Орел</item>
+        <item>Калининград</item>
+        <item>Липецк</item>
+        <item>Архангельск</item>
+        <item>Красноярск</item>
+        <item>Саратов</item>
+        <item>Новосибирск</item>
+        <item>Омск</item>
+        <item>Петропавловск</item>
+    </string-array>
+</resources>
