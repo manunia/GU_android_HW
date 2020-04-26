@@ -43,7 +43,7 @@
 //    }
 //
 //    private void getDataFromMainActivity() {
-//        CityEntity city = (CityEntity) getIntent().getExtras().getSerializable(CREATE_CITY);
+//        City city = (City) getIntent().getExtras().getSerializable(CREATE_CITY);
 //
 //        Intent intent = getIntent();
 //        boolean isWindChecked = intent.getBooleanExtra(WIND_SPEED_CHECK,false);

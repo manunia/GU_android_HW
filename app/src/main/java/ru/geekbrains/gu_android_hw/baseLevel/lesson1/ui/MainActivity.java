@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSource;
 
 public class MainActivity extends AppCompatActivity implements Constants {
 
-    private String[] data;
     private RecyclerView recyclerView;
 
     @Override
@@ -22,12 +22,11 @@ public class MainActivity extends AppCompatActivity implements Constants {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        data = getResources().getStringArray(R.array.items);
-
-        initList(data);
+        DataSource source = new DataSource(getResources());
+        initList(source.build());
     }
 
-    private void initList(String[] data){
+    private void initList(DataSource data){
         recyclerView = findViewById(R.id.recycler_view);
 
         // Эта установка служит для повышения производительности системы
@@ -44,8 +43,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, String.format("%s - %d", ((TextView)view).getText(), position), Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this, String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
             }
         });
     }
