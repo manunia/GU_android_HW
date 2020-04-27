@@ -2,7 +2,6 @@ package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,15 +11,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
-
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 
 public class MainActivity extends AppCompatActivity implements Constants {
@@ -63,19 +59,19 @@ public class MainActivity extends AppCompatActivity implements Constants {
 
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View view, String name, int position) {
                 Toast.makeText(MainActivity.this, String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent("showCityActivity");
 
-                intent.putExtra(CREATE_CITY, createCity());
+                intent.putExtra(CREATE_CITY, createCity(name,position));
                 startActivity(intent);
             }
         });
         return adapter;
     }
 
-    private City createCity() {
-        City city = new City("Moscow",0);
+    private City createCity(String name, int position) {
+        City city = new City(name,position);
 
         return city;
     }

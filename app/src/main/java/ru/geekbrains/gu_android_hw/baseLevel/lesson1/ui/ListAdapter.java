@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSource;
 
 //адаптер
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
@@ -21,6 +20,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private CityDataSource datasource;
 
     private OnItemClickListener itemClickListener;
+
+    public CityDataSource getDatasource() {
+        return datasource;
+    }
 
     public ListAdapter(CityDataSource datasource) {
         this.datasource = datasource;
@@ -64,7 +67,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, String name, int position);
     }
 
     //класс, который хранит связь между данными и элементами view
@@ -75,7 +78,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cityName = itemView.findViewById(R.id.cityName);
+            cityName = itemView.findViewById(R.id.itemCityName);
             image = itemView.findViewById(R.id.cityImage);
         }
 
@@ -88,7 +91,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     // Проверяем ее на корректность
                     if (adapterPosition == RecyclerView.NO_POSITION) return;
 
-                    listener.onItemClick(v, adapterPosition);
+                    listener.onItemClick(v, getDatasource().getCity(adapterPosition).getName(), adapterPosition);
                 }
             });
         }

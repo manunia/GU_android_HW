@@ -1,16 +1,11 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,7 +52,7 @@ public class CityActivity extends AppCompatActivity implements Constants {
         cityTemperature = findViewById(R.id.moscowTemperature);
         cityWindSpeed = findViewById(R.id.windSpeed);
         cityPressure = findViewById(R.id.pressure);
-        cityName = findViewById(R.id.cityName);
+        cityName = findViewById(R.id.itemCityName);
 
         windspeedRow = findViewById(R.id.windspeedRow);
         pressureRow = findViewById(R.id.pressureRow);
