@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 
-public class DataSource {
+public class DataSource implements CityDataSource {
 
     private List<City> dataSource;
     private Resources resources;
@@ -18,7 +19,7 @@ public class DataSource {
         this.resources = resources;
     }
 
-    public DataSource build(){
+    public DataSource init(){
         // строки описаний из ресурсов
         String[] descriptions = resources.getStringArray(R.array.items);
         // изображения
@@ -47,5 +48,7 @@ public class DataSource {
         }
         return answer;
     }
+
+
 
 }

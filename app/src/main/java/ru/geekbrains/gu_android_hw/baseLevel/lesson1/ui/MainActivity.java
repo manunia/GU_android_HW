@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 
 public class MainActivity extends AppCompatActivity implements Constants {
 
@@ -23,11 +27,17 @@ public class MainActivity extends AppCompatActivity implements Constants {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataSource source = new DataSource(getResources());
-        initList(source.build());
+        initDataSource();
     }
 
-    private void initList(DataSource data){
+    private void initDataSource() {
+        CityDataSource source = new DataSourceBuilder().setResources(getResources()).build();
+
+        final DataChangableSource dataChangableSource = new ChangeData(source);
+        final ListAdapter adapter = initList(dataChangableSource);
+    }
+
+    private ListAdapter initList(CityDataSource data){
         recyclerView = findViewById(R.id.recycler_view);
 
         // Эта установка служит для повышения производительности системы
@@ -51,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements Constants {
                 Toast.makeText(MainActivity.this, String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
             }
         });
+        return adapter;
     }
 
 
