@@ -1,5 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 
 public class DataSource implements CityDataSource {
@@ -27,6 +29,7 @@ public class DataSource implements CityDataSource {
         // заполнение источника данных
         for (int i = 0; i < descriptions.length; i++) {
             dataSource.add(new City(descriptions[i], pictures[i]));
+
         }
         return this;
     }
@@ -48,7 +51,6 @@ public class DataSource implements CityDataSource {
         }
         return answer;
     }
-
 
 
 }

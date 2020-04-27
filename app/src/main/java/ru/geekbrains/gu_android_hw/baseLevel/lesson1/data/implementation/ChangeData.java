@@ -1,5 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
 
@@ -13,7 +16,6 @@ public class ChangeData implements DataChangableSource {
         this.dataSource = dataSource;
     }
 
-
     @Override
     public City getCity(int position) {
         return dataSource.getCity(position);
@@ -23,4 +25,5 @@ public class ChangeData implements DataChangableSource {
     public int size() {
         return count;
     }
+
 }

@@ -1,6 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data;
 
-import java.util.List;
+import java.io.Serializable;
 
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
 

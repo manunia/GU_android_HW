@@ -27,4 +27,28 @@ public class City implements Serializable {
     public int getPicture() {
         return picture;
     }
+
+    public int getTodayTemperature() {
+        return todayTemperature;
+    }
+
+    public void setTodayTemperature(int todayTemperature) {
+        this.todayTemperature = todayTemperature;
+    }
+
+    public int getTodaySpeed() {
+        return todaySpeed;
+    }
+
+    public void setTodaySpeed(int todaySpeed) {
+        this.todaySpeed = todaySpeed;
+    }
+
+    public int getTodayPressure() {
+        return todayPressure;
+    }
+
+    public void setTodayPressure(int todayPressure) {
+        this.todayPressure = todayPressure;
+    }
 }
