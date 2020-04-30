@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.regex.Pattern;
+
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
@@ -23,12 +27,44 @@ public class MainActivity extends AppCompatActivity implements Constants {
 
     private RecyclerView recyclerView;
 
+    TextInputEditText cityName;
+    //проверяем введенное название города
+    Pattern checkInputCity = Pattern.compile("^[A-Z][a-z]{2,}$");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        cityName = findViewById(R.id.inputCity);
+
+        cityName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) return;
+                TextView tv = (TextView) v;
+                validate(tv, checkInputCity, "Это не имя!");
+            }
+        });
+
         initDataSource();
+    }
+
+    private void validate(TextView tv, Pattern check, String s) {
+        String value = tv.getText().toString();
+        if (check.matcher(value).matches()) {
+            hideError(tv);
+        } else {
+            showError(tv, s);
+        }
+    }
+
+    private void showError(TextView tv, String s) {
+        tv.setError(s);
+    }
+
+    private void hideError(TextView tv) {
+        tv.setError(null);
     }
 
     private void initDataSource() {

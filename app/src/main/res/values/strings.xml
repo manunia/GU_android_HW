@@ -17,5 +17,6 @@
     <string name="temperature">Temperature</string>
     <string name="m_sec">m/sec</string>
     <string name="mm_rt_st">mm.rt.st</string>
+    <string name="enter_city">Enter city</string>
 
 </resources>
