@@ -1,5 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
 
-public class CityActivity extends AppCompatActivity implements Constants {
+public class CityActivity extends BaseActivity implements Constants {
 
     private TextView cityTemperature;
     private TextView cityWindSpeed;
@@ -22,8 +23,6 @@ public class CityActivity extends AppCompatActivity implements Constants {
 
     private TableRow windspeedRow;
     private TableRow pressureRow;
-
-    private Button openBrouserButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +37,8 @@ public class CityActivity extends AppCompatActivity implements Constants {
     private void getDataFromMainActivity() {
         City city = (City) getIntent().getExtras().getSerializable(CREATE_CITY);
 
-        //Intent intent = getIntent();
-       // boolean isWindChecked = intent.getBooleanExtra(WIND_SPEED_CHECK,false);
-       // boolean isPressureChecked = intent.getBooleanExtra(PRESSURE_CHECK,false);
-
         cityName.setText(city.getName());
         cityTemperature.setText(((Integer)city.getTodayTemperature()).toString());
-        //showParametr(isWindChecked,city.getTodaySpeed(), cityWindSpeed,windspeedRow);
-        //showParametr(isPressureChecked,city.getTodayPressure(), cityPressure,pressureRow);
     }
 
     private void initFields() {
@@ -56,10 +49,7 @@ public class CityActivity extends AppCompatActivity implements Constants {
 
         windspeedRow = findViewById(R.id.windspeedRow);
         pressureRow = findViewById(R.id.pressureRow);
-
-        openBrouserButton = findViewById(R.id.openBrouserButton);
     }
-
 
     //show or hide selected param
     private void showParametr(boolean isParametrChecked, int todayParam, TextView parametrText, TableRow parametrRow) {
@@ -70,5 +60,12 @@ public class CityActivity extends AppCompatActivity implements Constants {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTING_CODE) {
+            recreate();
+        }
+    }
 
 }

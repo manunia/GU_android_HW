@@ -18,5 +18,8 @@
     <string name="m_sec">m/sec</string>
     <string name="mm_rt_st">mm.rt.st</string>
     <string name="enter_city">Enter city</string>
+    <string name="dark_theme">dark</string>
+    <string name="rus">rus</string>
+    <string name="setting">Settings</string>
 
 </resources>
