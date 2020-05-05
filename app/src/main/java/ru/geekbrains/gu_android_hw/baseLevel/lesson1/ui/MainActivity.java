@@ -42,25 +42,14 @@ public class MainActivity extends BaseActivity implements Constants{
         setContentView(R.layout.activity_main);
 
         Button setting = findViewById(R.id.settingButton);
-        Button submit = findViewById(R.id.submit_buton);
+
         settingOnClick(setting);
-        submitOnClick(submit);
 
         cityName = findViewById(R.id.inputCity);
 
         textViewOnFocusChange();
 
         initDataSource();
-    }
-
-    private void submitOnClick(Button submit) {
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView tv = (TextView) v;
-                validate(tv, checkInputCity, "Это не имя!");
-            }
-        });
     }
 
     private void textViewOnFocusChange() {
