@@ -18,4 +18,10 @@ public class DataSourceBuilder {
         dataSource.init();
         return dataSource;
     }
+
+    public CityDataSource find(String name) {
+        DataSource dataSource = new DataSource(resources);
+        dataSource.find(name);
+        return dataSource;
+    }
 }

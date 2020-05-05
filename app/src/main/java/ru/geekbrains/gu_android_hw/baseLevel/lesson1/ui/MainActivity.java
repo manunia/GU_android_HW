@@ -59,6 +59,11 @@ public class MainActivity extends BaseActivity implements Constants{
                 if (hasFocus) return;
                 TextView tv = (TextView) v;
                 validate(tv, checkInputCity, "Это не имя!");
+
+                CityDataSource source = new DataSourceBuilder().setResources(getResources()).find(tv.getText().toString());
+                final DataChangableSource dataChangableSource = new ChangeData(source);
+                final ListAdapter adapter = initList(dataChangableSource);
+
             }
         });
     }

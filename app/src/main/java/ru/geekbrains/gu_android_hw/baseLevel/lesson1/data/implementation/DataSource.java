@@ -29,7 +29,19 @@ public class DataSource implements CityDataSource {
         // заполнение источника данных
         for (int i = 0; i < descriptions.length; i++) {
             dataSource.add(new City(descriptions[i], pictures[i]));
+        }
+        return this;
+    }
 
+    public DataSource find(String name) {
+        // строки описаний из ресурсов
+        String[] descriptions = resources.getStringArray(R.array.items);
+        int[] pictures = getImageArray();
+        // заполнение источника данных
+        for (int i = 0; i < descriptions.length; i++) {
+            if(descriptions[i].equals(name)) {
+                dataSource.add(0,new City(descriptions[i], pictures[i]));
+            }
         }
         return this;
     }
