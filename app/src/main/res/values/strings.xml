@@ -3,6 +3,7 @@
     <string name="app_name">GU_android_HW</string>
     <string name="city_moscow">Moscow</string>
     <string name="gradus">\u2103</string>
+    <string name="farengeit">\u2109</string>
     <string name="city_kazan">Kazan</string>
     <string name="city_orenburg">Orenburg</string>
     <string name="city_tver">Tver</string>
@@ -13,13 +14,11 @@
     <string name="select_info_to_show">Select info to show</string>
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
-    <string name="location">Location</string>
     <string name="temperature">Temperature</string>
     <string name="m_sec">m/sec</string>
     <string name="mm_rt_st">mm.rt.st</string>
     <string name="enter_city">Enter city</string>
     <string name="dark_theme">dark</string>
     <string name="rus">rus</string>
-    <string name="setting">Settings</string>
-
+    <string name="cels">cels</string>
 </resources>

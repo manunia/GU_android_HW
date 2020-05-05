@@ -21,8 +21,10 @@ public class CityActivity extends BaseActivity implements Constants {
     private TextView cityPressure;
     private TextView cityName;
 
+
     private TableRow windspeedRow;
     private TableRow pressureRow;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +32,6 @@ public class CityActivity extends BaseActivity implements Constants {
         setContentView(R.layout.city_activity);
 
         initFields();
-
         getDataFromMainActivity();
     }
 
@@ -46,26 +47,9 @@ public class CityActivity extends BaseActivity implements Constants {
         cityWindSpeed = findViewById(R.id.windSpeed);
         cityPressure = findViewById(R.id.pressure);
         cityName = findViewById(R.id.itemCityName);
-
         windspeedRow = findViewById(R.id.windspeedRow);
         pressureRow = findViewById(R.id.pressureRow);
     }
 
-    //show or hide selected param
-    private void showParametr(boolean isParametrChecked, int todayParam, TextView parametrText, TableRow parametrRow) {
-        if (isParametrChecked) {
-            parametrText.setText(((Integer)todayParam).toString());
-        } else {
-            parametrRow.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SETTING_CODE) {
-            recreate();
-        }
-    }
 
 }

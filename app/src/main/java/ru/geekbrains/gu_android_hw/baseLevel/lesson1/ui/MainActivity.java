@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity implements Constants{
     private RecyclerView recyclerView;
 
     TextInputEditText cityName;
+
     //проверяем введенное название города
     Pattern checkInputCity = Pattern.compile("^[A-Z][a-z]{2,}$");
 
@@ -41,16 +42,28 @@ public class MainActivity extends BaseActivity implements Constants{
         setContentView(R.layout.activity_main);
 
         Button setting = findViewById(R.id.settingButton);
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                startActivityForResult(intent,SETTING_CODE);
-            }
-        });
+        Button submit = findViewById(R.id.submit_buton);
+        settingOnClick(setting);
+        submitOnClick(submit);
 
         cityName = findViewById(R.id.inputCity);
 
+        textViewOnFocusChange();
+
+        initDataSource();
+    }
+
+    private void submitOnClick(Button submit) {
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = (TextView) v;
+                validate(tv, checkInputCity, "Это не имя!");
+            }
+        });
+    }
+
+    private void textViewOnFocusChange() {
         cityName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -59,8 +72,16 @@ public class MainActivity extends BaseActivity implements Constants{
                 validate(tv, checkInputCity, "Это не имя!");
             }
         });
+    }
 
-        initDataSource();
+    private void settingOnClick(Button setting) {
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivityForResult(intent,SETTING_CODE);
+            }
+        });
     }
 
     private void validate(TextView tv, Pattern check, String s) {
@@ -109,7 +130,6 @@ public class MainActivity extends BaseActivity implements Constants{
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, String name, int position) {
-                //Toast.makeText(MainActivity.this, String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
                 Snackbar.make(view,String.format("Позиция - %d", position),Snackbar.LENGTH_LONG).setAction("Action",null).show();
                 Intent intent = new Intent("showCityActivity");
 
@@ -122,7 +142,6 @@ public class MainActivity extends BaseActivity implements Constants{
 
     private City createCity(String name, int position) {
         City city = new City(name,position);
-
         return city;
     }
 
