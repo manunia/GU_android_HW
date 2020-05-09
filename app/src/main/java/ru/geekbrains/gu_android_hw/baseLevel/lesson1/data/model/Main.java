@@ -1,6 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
-public class Main {
+import java.io.Serializable;
+
+public class Main implements Serializable {
 
     private float temp;
     private int pressure;

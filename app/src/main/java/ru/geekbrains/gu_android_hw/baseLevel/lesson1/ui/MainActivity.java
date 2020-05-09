@@ -162,7 +162,7 @@ public class MainActivity extends BaseActivity implements Constants{
                                 urlConnection.setRequestMethod("GET");
                                 urlConnection.setReadTimeout(10000);
                                 BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                                String result = in.lines().collect(Collectors.joining("\n"));
+                                String result = getLines(in);
                                 Gson gson = new Gson();
                                 weatherRequest = gson.fromJson(result,WeatherRequest.class);
 

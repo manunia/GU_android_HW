@@ -1,6 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
-public class Wind {
+import java.io.Serializable;
+
+public class Wind implements Serializable {
     private float speed;
     private float deg;
 

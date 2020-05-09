@@ -1,6 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
-public class Coord {
+import java.io.Serializable;
+
+public class Coord implements Serializable {
     private float lon;
     private float lat;
 

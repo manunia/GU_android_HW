@@ -1,6 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
     private String main;
     private String description;
 

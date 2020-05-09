@@ -1,6 +1,8 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
-public class Clouds {
+import java.io.Serializable;
+
+public class Clouds implements Serializable {
     private int all;
 
     public int getAll() {
