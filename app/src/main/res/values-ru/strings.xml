@@ -10,7 +10,7 @@
     <string name="city_rostov">Ростов</string>
     <string name="select_info_to_show">Выбрать параметры</string>
     <string name="wind_speed">скорость ветра</string>
-    <string name="atmosphere_pressure">атмосферное давление</string>
+    <string name="atmosphere_pressure">давление</string>
     <string name="submit">Принять</string>
     <string name="settings">Настройки</string>
     <string name="theme">Тема</string>
@@ -21,4 +21,6 @@
     <string name="dark_theme">темн.</string>
     <string name="rus">рус.</string>
     <string name="cels">цельс.</string>
+    <string name="humidity" />
+    <string name="city">city</string>
 </resources>

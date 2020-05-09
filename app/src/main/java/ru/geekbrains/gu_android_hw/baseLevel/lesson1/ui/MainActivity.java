@@ -1,13 +1,17 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,22 +20,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 
 public class MainActivity extends BaseActivity implements Constants{
 
     private RecyclerView recyclerView;
 
-    TextInputEditText cityName;
+    private TextInputEditText cityName;
+
+    private static final String TAG = "WEATHER";
+    private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=Moscow,RU&appid=";
+
+    private WeatherRequest weatherRequest;
 
     //проверяем введенное название города
     Pattern checkInputCity = Pattern.compile("^[A-Z][a-z]{2,}$");
@@ -127,10 +148,53 @@ public class MainActivity extends BaseActivity implements Constants{
             @Override
             public void onItemClick(View view, String name, int position) {
                 Snackbar.make(view,String.format("Позиция - %d", position),Snackbar.LENGTH_LONG).setAction("Action",null).show();
-                Intent intent = new Intent("showCityActivity");
 
-                intent.putExtra(CREATE_CITY, createCity(name,position));
-                startActivity(intent);
+                try {
+                    final URL uri = new URL(WEATHER_URL + BuildConfig.WEATHER_API_KEY);
+
+                    new Thread(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @Override
+                        public void run() {
+                            HttpsURLConnection urlConnection = null;
+                            try {
+                                urlConnection = (HttpsURLConnection) uri.openConnection();
+                                urlConnection.setRequestMethod("GET");
+                                urlConnection.setReadTimeout(10000);
+                                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                                String result = in.lines().collect(Collectors.joining("\n"));
+                                Gson gson = new Gson();
+                                weatherRequest = gson.fromJson(result,WeatherRequest.class);
+
+                                Intent intent = new Intent("showCityActivity");
+
+                                intent.putExtra(CREATE_CITY, weatherRequest);
+                                startActivity(intent);
+
+
+                            } catch (Exception e) {
+                                Log.e(TAG,"Fail connection",e);
+                                e.printStackTrace();
+                            } finally {
+                                if (null != urlConnection) {
+                                    urlConnection.disconnect();
+                                }
+                            }
+                        }
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+                        private String getLines(BufferedReader in) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                return in.lines().collect(Collectors.joining("\n"));
+                            }
+                            return null;
+                        }
+                    }).start();
+                } catch (MalformedURLException e) {
+                    Log.e(TAG,"Fail URI",e);
+                    e.printStackTrace();
+                }
+
+
             }
         });
         return adapter;

@@ -20,6 +20,10 @@ public class City implements Serializable {
         this.todayPressure = 720;
     }
 
+    public City(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

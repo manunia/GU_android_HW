@@ -1,91 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="5dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="32dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginEnd="32dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="horizontal">
 
-    <TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/itemCityName"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp"
-            android:text="@string/city_moscow"
-            android:textSize="40dp" />
+            android:layout_height="wrap_content"
+            android:text="@string/city" />
+
+        <EditText
+            android:id="@+id/city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature" />
+
+        <EditText
             android:id="@+id/moscowTemperature"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="12"
-            android:textSize="40dp" />
-
-        <TextView
-            android:id="@+id/temperature_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="@string/gradus"
-            android:textSize="40dp" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
 
     </TableRow>
 
     <TableRow
-        android:id="@+id/windspeedRow">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp"
-            android:text="@string/wind_speed"
-            android:textSize="40dp" />
+            android:layout_height="wrap_content"
+            android:text="@string/atmosphere_pressure" />
 
-        <TextView
-            android:id="@+id/windSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="5"
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="@string/m_sec"
-            android:textSize="40dp" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/pressureRow">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp"
-            android:text="@string/atmosphere_pressure"
-            android:textSize="20dp" />
-
-        <TextView
+        <EditText
             android:id="@+id/pressure"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="300"
-            android:textSize="20dp" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:text="@string/mm_rt_st"
-            android:textSize="20dp" />
+            android:layout_height="wrap_content"
+            android:text="@string/humidity" />
+
+        <EditText
+            android:id="@+id/textHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
     </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wind_speed" />
+
+        <EditText
+            android:id="@+id/windSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
+
+    </TableRow>
+
 
 </TableLayout>

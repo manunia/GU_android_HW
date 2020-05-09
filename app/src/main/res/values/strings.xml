@@ -9,7 +9,7 @@
     <string name="city_tver">Tver</string>
     <string name="city_rostov">Rostov</string>
     <string name="wind_speed">wind speed</string>
-    <string name="atmosphere_pressure">Atmosphere pressure</string>
+    <string name="atmosphere_pressure">pressure</string>
     <string name="submit">Submit</string>
     <string name="select_info_to_show">Select info to show</string>
     <string name="settings">Settings</string>
@@ -21,4 +21,6 @@
     <string name="dark_theme">dark</string>
     <string name="rus">rus</string>
     <string name="cels">cels</string>
+    <string name="humidity">humidity</string>
+    <string name="city">city</string>
 </resources>
