@@ -24,9 +24,15 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 public class HttpsConnection {
 
     private static final String TAG = "WEATHER";
-    private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=Moscow,RU&appid=";
+    private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
+    private static final String POST_BODY = ",RU&appid=";
+    private String name;
 
     private WeatherRequest weatherRequest;
+
+    public HttpsConnection(String name) {
+        this.name = name;
+    }
 
     public void setWeatherRequest(WeatherRequest weatherRequest) {
         this.weatherRequest = weatherRequest;
@@ -38,7 +44,7 @@ public class HttpsConnection {
 
     public void createConnection() {
         try {
-            final URL uri = new URL(WEATHER_URL + BuildConfig.WEATHER_API_KEY);
+            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY);
 
             new Thread(new Runnable() {
                 @RequiresApi(api = Build.VERSION_CODES.N)

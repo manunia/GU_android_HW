@@ -63,12 +63,14 @@ public class MainActivity extends BaseActivity implements Constants{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) return;
                 TextView tv = (TextView) v;
+                String name = tv.getText().toString();
                 validate(tv, checkInputCity, "Это не имя!");
 
-                CityDataSource source = new DataSourceBuilder().setResources(getResources()).find(tv.getText().toString());
+                CityDataSource source = new DataSourceBuilder().setResources(getResources()).find(name);
                 final DataChangableSource dataChangableSource = new ChangeData(source);
                 final ListAdapter adapter = initList(dataChangableSource);
 
+                showWeatherFromRequest(name);
             }
         });
     }
@@ -130,20 +132,21 @@ public class MainActivity extends BaseActivity implements Constants{
             @Override
             public void onItemClick(View view, String name, int position) {
                 Snackbar.make(view,String.format("Позиция - %d", position),Snackbar.LENGTH_LONG).setAction("Action",null).show();
-
-                connection = new HttpsConnection();
-                connection.createConnection();
-                weatherRequest = connection.getWeatherRequest();
-
-                Intent intent = new Intent("showCityActivity");
-
-                intent.putExtra(CREATE_CITY, weatherRequest);
-                startActivity(intent);
-
-
+                showWeatherFromRequest(name);
             }
         });
         return adapter;
+    }
+
+    private void showWeatherFromRequest(String name) {
+        connection = new HttpsConnection(name);
+        connection.createConnection();
+        weatherRequest = connection.getWeatherRequest();
+
+        Intent intent = new Intent("showCityActivity");
+
+        intent.putExtra(CREATE_CITY, weatherRequest);
+        startActivity(intent);
     }
 
     private City createCity(String name, int position) {
