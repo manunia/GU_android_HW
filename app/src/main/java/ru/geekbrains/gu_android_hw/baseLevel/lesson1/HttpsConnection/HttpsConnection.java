@@ -1,5 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -27,6 +28,10 @@ public class HttpsConnection {
 
     private WeatherRequest weatherRequest;
 
+    public void setWeatherRequest(WeatherRequest weatherRequest) {
+        this.weatherRequest = weatherRequest;
+    }
+
     public WeatherRequest getWeatherRequest() {
         return weatherRequest;
     }
@@ -34,6 +39,7 @@ public class HttpsConnection {
     public void createConnection() {
         try {
             final URL uri = new URL(WEATHER_URL + BuildConfig.WEATHER_API_KEY);
+
             new Thread(new Runnable() {
                 @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
@@ -46,7 +52,8 @@ public class HttpsConnection {
                         BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         String result = getLines(in);
                         Gson gson = new Gson();
-                        weatherRequest = gson.fromJson(result,WeatherRequest.class);
+                        //final WeatherRequest weatherRequest = gson.fromJson(result,WeatherRequest.class);
+                        setWeatherRequest(gson.fromJson(result,WeatherRequest.class));
 
                     } catch (Exception e) {
                         Log.e(TAG,"Fail connection",e);
@@ -56,6 +63,13 @@ public class HttpsConnection {
                             urlConnection.disconnect();
                         }
                     }
+                }
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+                private String getLines(BufferedReader in) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        return in.lines().collect(Collectors.joining("\n"));
+                    }
+                    return null;
                 }
             }).start();
         } catch (MalformedURLException e) {
