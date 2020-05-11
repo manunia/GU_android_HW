@@ -23,4 +23,6 @@
     <string name="cels">cels</string>
     <string name="humidity">humidity</string>
     <string name="city">city</string>
+    <string name="percent">\u0025</string>
+    <string name="weahter">weather</string>
 </resources>

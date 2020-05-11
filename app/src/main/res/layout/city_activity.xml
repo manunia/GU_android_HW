@@ -30,7 +30,26 @@
             android:textColor="@color/colorPrimaryDark" />
 
     </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weahter" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
+    </TableRow>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,6 +69,11 @@
             android:inputType="textPersonName"
             android:text=""
             android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gradus" />
 
     </TableRow>
 
@@ -73,6 +97,11 @@
             android:text=""
             android:textColor="@color/colorPrimaryDark" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mm_rt_st" />
+
     </TableRow>
 
     <TableRow
@@ -95,6 +124,11 @@
             android:text=""
             android:textColor="@color/colorPrimaryDark" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/percent" />
+
     </TableRow>
 
     <TableRow
@@ -116,6 +150,11 @@
             android:inputType="textPersonName"
             android:text=""
             android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m_sec" />
 
 
     </TableRow>

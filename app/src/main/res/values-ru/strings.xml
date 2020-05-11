@@ -21,6 +21,8 @@
     <string name="dark_theme">темн.</string>
     <string name="rus">рус.</string>
     <string name="cels">цельс.</string>
-    <string name="humidity" />
-    <string name="city">city</string>
+    <string name="humidity">влажность</string>
+    <string name="city">город</string>
+    <string name="percent">\u0025</string>
+    <string name="weahter">погода</string>
 </resources>

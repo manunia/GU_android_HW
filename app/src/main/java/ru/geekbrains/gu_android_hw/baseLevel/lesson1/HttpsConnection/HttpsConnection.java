@@ -25,7 +25,7 @@ public class HttpsConnection {
 
     private static final String TAG = "WEATHER";
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    private static final String POST_BODY = ",RU&appid=";
+    private static final String POST_BODY = ",RU&units=metric&appid=";
     private String name;
 
     private WeatherRequest weatherRequest;
