@@ -50,10 +50,10 @@ public class CityActivity extends BaseActivity implements Constants {
 
         cityName.setText(weatherRequest.getName());
         weatherDescription.setText(weatherRequest.getWeather()[0].getDescription());
-        cityTemperature.setText(String.format("%f2", weatherRequest.getMain().getTemp()));
+        cityTemperature.setText(String.format("%d", (int)weatherRequest.getMain().getTemp()));
         cityPressure.setText(String.format("%d", pressure));
         humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
-        cityWindSpeed.setText(String.format("%f2", weatherRequest.getWind().getSpeed()));
+        cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
 
     }
 
