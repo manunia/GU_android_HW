@@ -25,4 +25,6 @@
     <string name="city">город</string>
     <string name="percent">\u0025</string>
     <string name="weahter">погода</string>
+    <string name="about">о разработчиках</string>
+    <string name="about_developer">разработчик Мария Л\nСоздано: 2020 г.</string>
 </resources>

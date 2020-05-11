@@ -25,4 +25,6 @@
     <string name="city">city</string>
     <string name="percent">\u0025</string>
     <string name="weahter">weather</string>
+    <string name="about">about</string>
+    <string name="about_developer">developer Maria L\ncreated: 2020</string>
 </resources>

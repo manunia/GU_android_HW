@@ -2,10 +2,13 @@ package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -29,6 +32,8 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 
 public class MainActivity extends BaseActivity implements Constants{
 
+    private Toolbar toolbar;
+
     private RecyclerView recyclerView;
 
     private TextInputEditText cityName;
@@ -44,17 +49,34 @@ public class MainActivity extends BaseActivity implements Constants{
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
-        Button setting = findViewById(R.id.settingButton);
-
-        settingOnClick(setting);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         cityName = findViewById(R.id.inputCity);
 
         textViewOnFocusChange();
 
         initDataSource();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivityForResult(intent,SETTING_CODE);
+        }
+        if (id == R.id.action_about) {
+            Snackbar.make(toolbar, R.string.about_developer, Snackbar.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void textViewOnFocusChange() {
@@ -71,16 +93,6 @@ public class MainActivity extends BaseActivity implements Constants{
                 final ListAdapter adapter = initList(dataChangableSource);
 
                 showWeatherFromRequest(name);
-            }
-        });
-    }
-
-    private void settingOnClick(Button setting) {
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                startActivityForResult(intent,SETTING_CODE);
             }
         });
     }

@@ -44,7 +44,7 @@ public class HttpsConnection {
 
     public void createConnection() {
         try {
-            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY);
+            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY + "&lang=ru");
 
             new Thread(new Runnable() {
                 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -54,7 +54,7 @@ public class HttpsConnection {
                     try {
                         urlConnection = (HttpsURLConnection) uri.openConnection();
                         urlConnection.setRequestMethod("GET");
-                        urlConnection.setReadTimeout(10000);
+                        urlConnection.setReadTimeout(50000);
                         BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         String result = getLines(in);
                         Gson gson = new Gson();
