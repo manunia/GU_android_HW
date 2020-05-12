@@ -28,6 +28,8 @@ public class HttpsConnection {
     private static final String POST_BODY = ",RU&units=metric&appid=";
     private static final String RUS_LANG = "&lang=ru";
 
+    private URL uri;
+    private boolean isRusLocation;
     private String name;
     private WeatherRequest weatherRequest;
 
@@ -39,13 +41,25 @@ public class HttpsConnection {
         this.weatherRequest = weatherRequest;
     }
 
+    public boolean isRusLocation() {
+        return isRusLocation;
+    }
+
+    public void setRusLocation(boolean rusLocation) {
+        isRusLocation = rusLocation;
+    }
+
     public WeatherRequest getWeatherRequest() {
         return weatherRequest;
     }
 
     public void createConnection() {
         try {
-            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY);
+            String path = WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY;
+            if (isRusLocation()) {
+                path+=RUS_LANG;
+            }
+            uri = new URL(path);
 
             HttpsURLConnection urlConnection = null;
             try {

@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements Constants{
     private WeatherRequest weatherRequest;
 
     //проверяем введенное название города
-    Pattern checkInputCity = Pattern.compile("^[A-Z][a-z]{2,}$");
+    Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +156,9 @@ public class MainActivity extends BaseActivity implements Constants{
             @Override
             public void run() {
                 connection = new HttpsConnection(name);
+                if (getResources().getConfiguration().locale.toString().contains("ru")) {
+                    connection.setRusLocation(true);
+                }
                 connection.createConnection();
                 weatherRequest = connection.getWeatherRequest();
                 Intent intent = new Intent("showCityActivity");
