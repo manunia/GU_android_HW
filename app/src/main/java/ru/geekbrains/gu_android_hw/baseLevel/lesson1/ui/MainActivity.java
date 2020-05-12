@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import ru.geekbrains.gu_android_hw.R;
@@ -51,7 +52,6 @@ public class MainActivity extends BaseActivity implements Constants{
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         cityName = findViewById(R.id.inputCity);
 
         textViewOnFocusChange();
@@ -151,19 +151,21 @@ public class MainActivity extends BaseActivity implements Constants{
     }
 
     private void showWeatherFromRequest(String name) {
-        connection = new HttpsConnection(name);
-        connection.createConnection();
-        weatherRequest = connection.getWeatherRequest();
 
-        Intent intent = new Intent("showCityActivity");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                connection = new HttpsConnection(name);
+                connection.createConnection();
+                weatherRequest = connection.getWeatherRequest();
+                Intent intent = new Intent("showCityActivity");
 
-        intent.putExtra(CREATE_CITY, weatherRequest);
-        startActivity(intent);
-    }
+                intent.putExtra(CREATE_CITY, weatherRequest);
+                startActivity(intent);
+            }
+        }).start();
 
-    private City createCity(String name, int position) {
-        City city = new City(name,position);
-        return city;
+
     }
 
     @Override

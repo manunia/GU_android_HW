@@ -26,8 +26,9 @@ public class HttpsConnection {
     private static final String TAG = "WEATHER";
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     private static final String POST_BODY = ",RU&units=metric&appid=";
-    private String name;
+    private static final String RUS_LANG = "&lang=ru";
 
+    private String name;
     private WeatherRequest weatherRequest;
 
     public HttpsConnection(String name) {
@@ -44,42 +45,27 @@ public class HttpsConnection {
 
     public void createConnection() {
         try {
-            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY + "&lang=ru");
+            final URL uri = new URL(WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY);
 
-            new Thread(new Runnable() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void run() {
-                    HttpsURLConnection urlConnection = null;
-                    try {
-                        urlConnection = (HttpsURLConnection) uri.openConnection();
-                        urlConnection.setRequestMethod("GET");
-                        urlConnection.setReadTimeout(50000);
-                        BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        String result = getLines(in);
-                        Gson gson = new Gson();
-                        //final WeatherRequest weatherRequest = gson.fromJson(result,WeatherRequest.class);
-                        setWeatherRequest(gson.fromJson(result,WeatherRequest.class));
-
-                    } catch (Exception e) {
-                        Log.e(TAG,"Fail connection",e);
-                        e.printStackTrace();
-                    } finally {
-                        if (null != urlConnection) {
-                            urlConnection.disconnect();
-                        }
-                    }
+            HttpsURLConnection urlConnection = null;
+            try {
+                urlConnection = (HttpsURLConnection) uri.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setReadTimeout(100000);
+                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String result = getLines(in);
+                Gson gson = new Gson();
+                setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+            } catch (Exception e) {
+                Log.e(TAG, "Fail connection", e);
+                e.printStackTrace();
+            } finally {
+                if (null != urlConnection) {
+                    urlConnection.disconnect();
                 }
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-                private String getLines(BufferedReader in) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        return in.lines().collect(Collectors.joining("\n"));
-                    }
-                    return null;
-                }
-            }).start();
+            }
         } catch (MalformedURLException e) {
-            Log.e(TAG,"Fail URI",e);
+            Log.e(TAG, "Fail URI", e);
             e.printStackTrace();
         }
     }
