@@ -3,19 +3,28 @@
     <string name="app_name">GU_android_HW</string>
     <string name="city_moscow">Moscow</string>
     <string name="gradus">\u2103</string>
+    <string name="farengeit">\u2109</string>
     <string name="city_kazan">Kazan</string>
     <string name="city_orenburg">Orenburg</string>
     <string name="city_tver">Tver</string>
     <string name="city_rostov">Rostov</string>
     <string name="wind_speed">wind speed</string>
-    <string name="atmosphere_pressure">Atmosphere pressure</string>
+    <string name="atmosphere_pressure">pressure</string>
     <string name="submit">Submit</string>
     <string name="select_info_to_show">Select info to show</string>
     <string name="settings">Settings</string>
     <string name="theme">Theme</string>
-    <string name="location">Location</string>
     <string name="temperature">Temperature</string>
     <string name="m_sec">m/sec</string>
     <string name="mm_rt_st">mm.rt.st</string>
-
+    <string name="enter_city">Enter city</string>
+    <string name="dark_theme">dark</string>
+    <string name="rus">rus</string>
+    <string name="cels">cels</string>
+    <string name="humidity">humidity</string>
+    <string name="city">city</string>
+    <string name="percent">\u0025</string>
+    <string name="weahter">weather</string>
+    <string name="about">about</string>
+    <string name="about_developer">developer Maria L\ncreated: 2020</string>
 </resources>

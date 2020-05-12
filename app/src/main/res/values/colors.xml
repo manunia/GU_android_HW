@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="city_color">#541BD834</color>
     <color name="temper_color">#CEF45C36</color>
+    <color name="separator_color">#CEA79E9E</color>
 </resources>

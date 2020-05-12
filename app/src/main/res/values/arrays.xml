@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items">
+        <item>Moscow</item>
+        <item>Rostov</item>
+        <item>Twer</item>
+        <item>Novgorod</item>
+        <item>Kazan</item>
+        <item>Samara</item>
+        <item>Orenburg</item>
+        <item>Voronez</item>
+        <item>Krasnonar</item>
+        <item>Orel</item>
+        <item>Kaliningrad</item>
+        <item>Lipetsk</item>
+        <item>Arhangelsk</item>
+        <item>Krasnoyarsk</item>
+        <item>Saratov</item>
+        <item>Novosibirsk</item>
+        <item>Omsk</item>
+        <item>Petropavlovsk</item>
+    </string-array>
+    <array name="pictures">
+        <item>@drawable/moscow</item>
+        <item>@drawable/rostow</item>
+        <item>@drawable/tver</item>
+        <item>@drawable/novgorod</item>
+        <item>@drawable/kazan</item>
+        <item>@drawable/samara</item>
+        <item>@drawable/orenburg</item>
+        <item>@drawable/voronez</item>
+        <item>@drawable/krasnodar</item>
+        <item>@drawable/orel</item>
+        <item>@drawable/kaliningrad</item>
+        <item>@drawable/lipetsk</item>
+        <item>@drawable/arhangelsk</item>
+        <item>@drawable/krasnoyarsk</item>
+        <item>@drawable/saratov</item>
+        <item>@drawable/novosibirsk</item>
+        <item>@drawable/omsk</item>
+        <item>@drawable/petropavlovsk</item>
+    </array>
+</resources>

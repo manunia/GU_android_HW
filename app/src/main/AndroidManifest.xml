@@ -3,6 +3,7 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="ru.geekbrains.gu_android_hw">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <dist:module dist:instant="true" />
 
     <application
@@ -12,17 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".baseLevel.lesson1.MainActivity">
+        <activity android:name=".baseLevel.lesson1.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".baseLevel.lesson1.CityActivity">
+        <activity android:name=".baseLevel.lesson1.ui.CityActivity">
             <intent-filter>
                 <action android:name="showCityActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity android:name=".baseLevel.lesson1.ui.SettingActivity">
+            <intent-filter>
+                <action android:name="showSettingActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
     </application>
 
