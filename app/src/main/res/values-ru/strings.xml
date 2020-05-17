@@ -27,4 +27,9 @@
     <string name="weahter">погода</string>
     <string name="about">о разработчиках</string>
     <string name="about_developer">разработчик Мария Л\nСоздано: 2020 г.</string>
+    <string name="menu_home">home</string>
+    <string name="menu_gallery">gallery</string>
+    <string name="menu_slideshow">slideshow</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
 </resources>
