@@ -39,15 +39,18 @@ public class CityActivity extends BaseActivity implements Constants {
     private void getDataFromMainActivity() {
         WeatherRequest weatherRequest = (WeatherRequest) getIntent().getExtras().getSerializable(CREATE_CITY);
 
-       int pressure = (int) (weatherRequest.getMain().getPressure() * 100 * 0.0075);
+        if (weatherRequest != null) {
+            int pressure = (int) (weatherRequest.getMain().getPressure() * 100 * 0.0075);
 
-        cityName.setText(weatherRequest.getName());
-        weatherDescription.setText(weatherRequest.getWeather()[0].getDescription());
-        cityTemperature.setText(String.format("%d", (int)weatherRequest.getMain().getTemp()));
-        cityPressure.setText(String.format("%d", pressure));
-        humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
-        cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
-
+            cityName.setText(weatherRequest.getName());
+            weatherDescription.setText(weatherRequest.getWeather()[0].getDescription());
+            cityTemperature.setText(String.format("%d", (int)weatherRequest.getMain().getTemp()));
+            cityPressure.setText(String.format("%d", pressure));
+            humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
+            cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
+        } else {
+            cityName.setText(getResources().getText(R.string.incorrect_name));
+        }
     }
 
     private void initFields() {

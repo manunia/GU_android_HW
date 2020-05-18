@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -69,10 +70,16 @@ public class HttpsConnection {
                 BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 String result = getLines(in);
                 Gson gson = new Gson();
-                setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+//                if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+//                    setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+//                } else if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_NOT_FOUND) {
+//                    setWeatherRequest(null);
+//                }
+
             } catch (Exception e) {
                 Log.e(TAG, "Fail connection", e);
                 e.printStackTrace();
+
             } finally {
                 if (null != urlConnection) {
                     urlConnection.disconnect();

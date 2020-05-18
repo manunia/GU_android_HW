@@ -85,14 +85,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Snackbar.make(searchText, query, Snackbar.LENGTH_LONG).show();
-
-                source = new DataSourceBuilder().setResources(getResources()).find(query);
-                final DataChangableSource dataChangableSource = new ChangeData(source);
-                final ListAdapter adapter = initList(dataChangableSource);
-
-                //showWeatherFromRequest(query);
-
+                showWeatherFromRequest(query);
                 return true;
             }
 
