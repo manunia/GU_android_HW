@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
 
     private MenuItem cityName;
 
+    private CityDataSource source;
     private HttpsConnection connection;
     private WeatherRequest weatherRequest;
 
@@ -54,8 +55,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
         toolbar = initToolbar();
-
-        //textViewOnFocusChange();
 
         initDataSource();
 
@@ -87,7 +86,13 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Snackbar.make(searchText, query, Snackbar.LENGTH_LONG).show();
-                showWeatherFromRequest(query);
+
+                source = new DataSourceBuilder().setResources(getResources()).find(query);
+                final DataChangableSource dataChangableSource = new ChangeData(source);
+                final ListAdapter adapter = initList(dataChangableSource);
+
+                //showWeatherFromRequest(query);
+
                 return true;
             }
 
@@ -113,24 +118,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         return super.onOptionsItemSelected(item);
     }
 
-//    private void textViewOnFocusChange() {
-//        cityName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) return;
-//                TextView tv = (TextView) v;
-//                String name = tv.getText().toString();
-//                validate(tv, checkInputCity, "Это не имя!");
-//
-//                CityDataSource source = new DataSourceBuilder().setResources(getResources()).find(name);
-//                final DataChangableSource dataChangableSource = new ChangeData(source);
-//                final ListAdapter adapter = initList(dataChangableSource);
-//
-//                showWeatherFromRequest(name);
-//            }
-//        });
-//    }
-
     private void validate(TextView tv, Pattern check, String s) {
         String value = tv.getText().toString();
         if (check.matcher(value).matches()) {
@@ -149,7 +136,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void initDataSource() {
-        CityDataSource source = new DataSourceBuilder().setResources(getResources()).build();
+        source = new DataSourceBuilder().setResources(getResources()).build();
 
         final DataChangableSource dataChangableSource = new ChangeData(source);
         final ListAdapter adapter = initList(dataChangableSource);

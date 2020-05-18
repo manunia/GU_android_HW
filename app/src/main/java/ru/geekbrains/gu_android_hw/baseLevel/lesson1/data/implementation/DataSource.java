@@ -41,6 +41,9 @@ public class DataSource implements CityDataSource {
         for (int i = 0; i < descriptions.length; i++) {
             if(descriptions[i].equals(name)) {
                 dataSource.add(0,new City(descriptions[i], pictures[i]));
+            } else {
+                dataSource.add(0,new City(name, pictures[pictures.length - 1]));
+
             }
         }
         return this;

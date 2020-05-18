@@ -39,5 +39,6 @@
         <item>@drawable/novosibirsk</item>
         <item>@drawable/omsk</item>
         <item>@drawable/petropavlovsk</item>
+        <item>@drawable/default_picture</item>
     </array>
 </resources>
