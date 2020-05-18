@@ -67,15 +67,13 @@ public class HttpsConnection {
                 urlConnection = (HttpsURLConnection) uri.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setReadTimeout(100000);
-                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                String result = getLines(in);
-                Gson gson = new Gson();
-//                if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-//                    setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
-//                } else if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_NOT_FOUND) {
-//                    setWeatherRequest(null);
-//                }
 
+                if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    String result = getLines(in);
+                    Gson gson = new Gson();
+                    setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+                }
             } catch (Exception e) {
                 Log.e(TAG, "Fail connection", e);
                 e.printStackTrace();
