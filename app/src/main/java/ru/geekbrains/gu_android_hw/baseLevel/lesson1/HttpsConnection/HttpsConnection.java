@@ -66,7 +66,6 @@ public class HttpsConnection {
             try {
                 urlConnection = (HttpsURLConnection) uri.openConnection();
                 urlConnection.setRequestMethod("GET");
-                urlConnection.setReadTimeout(100000);
 
                 if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
