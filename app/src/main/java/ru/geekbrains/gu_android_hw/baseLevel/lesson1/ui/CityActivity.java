@@ -53,7 +53,7 @@ public class CityActivity extends BaseActivity implements Constants {
             cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
             termometr.setLevel(temperature);
         } else {
-            cityName.setText(getResources().getText(R.string.incorrect_name));
+            new MyAlertDialogBuilder(CityActivity.this,"Exception",getResources().getText(R.string.incorrect_name).toString()).build();
         }
     }
 

@@ -1,5 +1,6 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui.MyAlertDialogBuilder;
 
 
 public class HttpsConnection {
@@ -54,7 +56,7 @@ public class HttpsConnection {
         return weatherRequest;
     }
 
-    public void createConnection() {
+    public void createConnection(Context context) {
         try {
             String path = WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY;
             if (isRusLocation()) {
@@ -74,6 +76,7 @@ public class HttpsConnection {
                     setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
                 }
             } catch (Exception e) {
+                new MyAlertDialogBuilder(context,"Exception!","Fail connection").build();
                 Log.e(TAG, "Fail connection", e);
                 e.printStackTrace();
 

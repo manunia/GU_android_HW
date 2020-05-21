@@ -32,5 +32,8 @@
     <string name="menu_slideshow">slideshow</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
-    <string name="incorrect_name">нет такого имени</string>
+    <string name="incorrect_name">Города с таким названием не существует!</string>
+    <string name="button">ПОНЯТНО</string>
+
+
 </resources>

@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
                 if (getResources().getConfiguration().locale.toString().contains("ru")) {
                     connection.setRusLocation(true);
                 }
-                connection.createConnection();
+                connection.createConnection(MainActivity.this);
                 weatherRequest = connection.getWeatherRequest();
                 Intent intent = new Intent("showCityActivity");
 

@@ -105,7 +105,7 @@ public class TermometrView extends View {
         //шкала градусника
         canvas.drawLine(2*padding,height/2, view_width - padding,height/2,new Paint(Color.BLACK));
         canvas.drawLine(view_width /2,2*padding, view_width /2,height-2*padding,new Paint(Color.BLACK));
-        
+
     }
 
     public void setLevel(int level) {
@@ -119,5 +119,10 @@ public class TermometrView extends View {
 
     public int getView_width() {
         return view_width;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

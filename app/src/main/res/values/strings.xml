@@ -32,5 +32,7 @@
     <string name="menu_slideshow">slideshow</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
-    <string name="incorrect_name">no such name</string>
+    <string name="incorrect_name">City with such name is not exists!</string>
+    <string name="button">OK</string>
+
 </resources>
