@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -27,18 +31,18 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnec
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 
-public class MainActivity extends BaseActivity implements Constants{
+public class MainActivity extends BaseActivity implements Constants, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
 
     private RecyclerView recyclerView;
 
-    private TextInputEditText cityName;
+    private MenuItem cityName;
 
+    private CityDataSource source;
     private HttpsConnection connection;
     private WeatherRequest weatherRequest;
 
@@ -50,18 +54,46 @@ public class MainActivity extends BaseActivity implements Constants{
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        cityName = findViewById(R.id.inputCity);
-
-        textViewOnFocusChange();
+        toolbar = initToolbar();
 
         initDataSource();
+
+        initDrawer(toolbar);
+    }
+
+    private void initDrawer(Toolbar toolbar) {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        navigationView.setNavigationItemSelectedListener(this);
+        toggle.syncState();
+
+    }
+
+    private Toolbar initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        return toolbar;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+        cityName = menu.findItem(R.id.inputCity);
+        final SearchView searchText = (SearchView) cityName.getActionView();
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                showWeatherFromRequest(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
         return true;
     }
 
@@ -77,24 +109,6 @@ public class MainActivity extends BaseActivity implements Constants{
             Snackbar.make(toolbar, R.string.about_developer, Snackbar.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void textViewOnFocusChange() {
-        cityName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) return;
-                TextView tv = (TextView) v;
-                String name = tv.getText().toString();
-                validate(tv, checkInputCity, "Это не имя!");
-
-                CityDataSource source = new DataSourceBuilder().setResources(getResources()).find(name);
-                final DataChangableSource dataChangableSource = new ChangeData(source);
-                final ListAdapter adapter = initList(dataChangableSource);
-
-                showWeatherFromRequest(name);
-            }
-        });
     }
 
     private void validate(TextView tv, Pattern check, String s) {
@@ -115,7 +129,7 @@ public class MainActivity extends BaseActivity implements Constants{
     }
 
     private void initDataSource() {
-        CityDataSource source = new DataSourceBuilder().setResources(getResources()).build();
+        source = new DataSourceBuilder().setResources(getResources()).build();
 
         final DataChangableSource dataChangableSource = new ChangeData(source);
         final ListAdapter adapter = initList(dataChangableSource);
@@ -159,7 +173,7 @@ public class MainActivity extends BaseActivity implements Constants{
                 if (getResources().getConfiguration().locale.toString().contains("ru")) {
                     connection.setRusLocation(true);
                 }
-                connection.createConnection();
+                connection.createConnection(MainActivity.this);
                 weatherRequest = connection.getWeatherRequest();
                 Intent intent = new Intent("showCityActivity");
 
@@ -176,6 +190,27 @@ public class MainActivity extends BaseActivity implements Constants{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SETTING_CODE) {
             recreate();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_home) {
+            Snackbar.make(toolbar, "home", Snackbar.LENGTH_LONG).show();
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 }
