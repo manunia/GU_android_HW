@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 
 import ru.geekbrains.gu_android_hw.BuildConfig;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.JsonParser;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui.MyAlertDialogBuilder;
 
@@ -56,7 +57,7 @@ public class HttpsConnection {
         return weatherRequest;
     }
 
-    public void createConnection(Context context) {
+    public void createConnection(Context context, JsonParser parser) {
         try {
             String path = WEATHER_URL + name + POST_BODY + BuildConfig.WEATHER_API_KEY;
             if (isRusLocation()) {
@@ -72,8 +73,9 @@ public class HttpsConnection {
                 if (urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     String result = getLines(in);
-                    Gson gson = new Gson();
-                    setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+                    //Gson gson = new Gson();
+                    //setWeatherRequest(gson.fromJson(result, WeatherRequest.class));
+                    parser.parse(result);
                 }
             } catch (Exception e) {
                 new MyAlertDialogBuilder(context,"Exception!","Fail connection").build();

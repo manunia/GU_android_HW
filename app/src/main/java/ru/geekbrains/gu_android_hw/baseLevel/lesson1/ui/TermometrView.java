@@ -110,7 +110,7 @@ public class TermometrView extends View {
 
     public void setLevel(int level) {
         this.level = level+50;
-
+        invalidate();
     }
 
     public void setView_width(int view_width) {

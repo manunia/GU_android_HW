@@ -30,6 +30,7 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.JsonParser;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
@@ -173,8 +174,10 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
                 if (getResources().getConfiguration().locale.toString().contains("ru")) {
                     connection.setRusLocation(true);
                 }
-                connection.createConnection(MainActivity.this);
-                weatherRequest = connection.getWeatherRequest();
+                JsonParser parser = new JsonParser();
+                connection.createConnection(MainActivity.this,parser);
+                //weatherRequest = connection.getWeatherRequest();
+                weatherRequest = parser.getWeatherRequest();
                 Intent intent = new Intent("showCityActivity");
 
                 intent.putExtra(CREATE_CITY, weatherRequest);
