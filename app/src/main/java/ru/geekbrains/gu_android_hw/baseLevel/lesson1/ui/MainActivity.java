@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                showWeatherFromRequest(searchText,query);
+                showWeatherFromRequest(query);
                 return true;
             }
 
