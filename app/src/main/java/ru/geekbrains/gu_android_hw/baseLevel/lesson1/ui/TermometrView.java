@@ -32,7 +32,7 @@ public class TermometrView extends View {
     // Отступ элементов
     private final static int padding = 50;
     // Скругление углов батареи
-    private final static int round = 25;
+    private final static int round = 45;
     // Ширина головы батареи
     private final static int headWidth = 40;
 
