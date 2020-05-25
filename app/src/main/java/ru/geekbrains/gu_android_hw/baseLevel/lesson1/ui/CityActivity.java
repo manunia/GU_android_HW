@@ -27,14 +27,7 @@ public class CityActivity extends BaseActivity implements Constants {
         setContentView(R.layout.city_activity);
 
         initFields();
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                getDataFromMainActivity();
-            }
-        });
-
+        getDataFromMainActivity();
 
     }
 

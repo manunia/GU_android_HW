@@ -166,25 +166,8 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                connection = new HttpsConnection(name);
-                if (getResources().getConfiguration().locale.toString().contains("ru")) {
-                    connection.setRusLocation(true);
-                }
-                JsonParser parser = new JsonParser();
-                connection.createConnection(MainActivity.this,parser);
-                weatherRequest = parser.getWeatherRequest();
-                Intent intent = new Intent("showCityActivity");
-
-                intent.putExtra(CREATE_CITY, weatherRequest);
-                startActivity(intent);
-            }
-        }).start();
-
-
+        JsonParser parser = new JsonParser();
+        weatherRequest = parser.getWeatherFromRequest(name,MainActivity.this);
     }
 
     @Override
