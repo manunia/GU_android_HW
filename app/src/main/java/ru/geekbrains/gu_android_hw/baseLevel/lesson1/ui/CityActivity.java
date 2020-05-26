@@ -19,8 +19,6 @@ public class CityActivity extends BaseActivity implements Constants {
     private EditText cityName;
     private EditText humidity;
 
-    private TermometrView termometr;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +42,6 @@ public class CityActivity extends BaseActivity implements Constants {
             cityPressure.setText(String.format("%d", pressure));
             humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
             cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
-            termometr.setLevel(temperature);
         } else {
             new MyAlertDialogBuilder(CityActivity.this,"Exception",getResources().getText(R.string.incorrect_name).toString()).build();
         }
@@ -57,7 +54,7 @@ public class CityActivity extends BaseActivity implements Constants {
         cityPressure = findViewById(R.id.pressure);
         cityName = findViewById(R.id.city_name);
         humidity = findViewById(R.id.textHumidity);
-        termometr = findViewById(R.id.termometr);
+
     }
 
 
