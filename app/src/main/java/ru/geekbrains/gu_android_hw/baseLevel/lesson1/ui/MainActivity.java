@@ -20,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import ru.geekbrains.gu_android_hw.R;
@@ -30,6 +28,7 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.WeatherDataLoader;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
@@ -165,24 +164,16 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
-
-        new Thread(new Runnable() {
+        WeatherDataLoader dataLoader = new WeatherDataLoader(new WeatherDataLoader.DataLoadListener() {
             @Override
-            public void run() {
-                connection = new HttpsConnection(name);
-                if (getResources().getConfiguration().locale.toString().contains("ru")) {
-                    connection.setRusLocation(true);
-                }
-                connection.createConnection(MainActivity.this);
-                weatherRequest = connection.getWeatherRequest();
+            public void onFinish(WeatherRequest param) {
                 Intent intent = new Intent("showCityActivity");
 
-                intent.putExtra(CREATE_CITY, weatherRequest);
+                intent.putExtra(Constants.CREATE_CITY, param);
                 startActivity(intent);
             }
-        }).start();
-
-
+        });
+        dataLoader.loadData(name,MainActivity.this);
     }
 
     @Override
