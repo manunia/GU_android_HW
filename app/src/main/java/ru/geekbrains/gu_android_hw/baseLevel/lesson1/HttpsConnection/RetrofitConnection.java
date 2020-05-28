@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -35,10 +39,23 @@ public class RetrofitConnection {
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
-                        Intent intent = new Intent("showCityActivity");
-
-                        intent.putExtra(Constants.CREATE_CITY, response.body());
-                        context.startActivity(intent);
+                        if (response.body() != null && response.isSuccessful()) {
+                            Intent intent = new Intent("showCityActivity");
+                            intent.putExtra(Constants.CREATE_CITY, response.body());
+                            context.startActivity(intent);
+                        }
+                        if (!response.isSuccessful() && response.errorBody() != null) {
+                            try {
+                                JSONObject jsonError = new JSONObject(response.errorBody().string());
+                                String error = jsonError.getString("message");
+                                new MyAlertDialogBuilder(context,"Error!",error).build();
+                                Log.e(TAG, error);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                     @Override
