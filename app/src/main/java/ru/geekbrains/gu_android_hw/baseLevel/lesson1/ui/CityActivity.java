@@ -49,7 +49,7 @@ public class CityActivity extends BaseActivity implements Constants {
             humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
             cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
             Picasso.get()
-                    .load("http://openweathermap.org/img/wn/" + weatherRequest.getWeather()[0].getIcon() + "@2x.png").into(weatherIcon);
+                    .load("http://openweathermap.org/img/wn/" + weatherRequest.getWeather()[0].getIcon() + "@4x.png").into(weatherIcon);
         } else {
             new MyAlertDialogBuilder(CityActivity.this,"Exception",getResources().getText(R.string.incorrect_name).toString()).build();
         }
