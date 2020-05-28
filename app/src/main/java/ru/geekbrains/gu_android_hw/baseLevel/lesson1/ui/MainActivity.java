@@ -43,8 +43,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     private MenuItem cityName;
 
     private CityDataSource source;
-    private HttpsConnection connection;
-    private WeatherRequest weatherRequest;
 
     //проверяем введенное название города
     Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
@@ -165,6 +163,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
+
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
         retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this);

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +30,8 @@ public class RetrofitConnection {
     }
 
     public void requestRetrofit(String city, String keyApi, Context context) {
-        openWeather.loadWeather(city, "metric", keyApi)
+        String[] lang = String.valueOf(Locale.getDefault()).split("_");
+        openWeather.loadWeather(city, "metric", keyApi, lang[0])
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
