@@ -1,10 +1,15 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+
+import com.squareup.picasso.Picasso;
 
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
@@ -13,7 +18,7 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 public class CityActivity extends BaseActivity implements Constants {
 
     private EditText weatherDescription;
-    private EditText weatherIcon;
+    private ImageView weatherIcon;
     private EditText cityTemperature;
     private EditText cityWindSpeed;
     private EditText cityPressure;
@@ -39,11 +44,12 @@ public class CityActivity extends BaseActivity implements Constants {
 
             cityName.setText(weatherRequest.getName());
             weatherDescription.setText(weatherRequest.getWeather()[0].getDescription());
-            weatherIcon.setText(weatherRequest.getWeather()[0].getIcon());
             cityTemperature.setText(String.format("%d", temperature));
             cityPressure.setText(String.format("%d", pressure));
             humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
             cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
+            Picasso.get()
+                    .load("http://openweathermap.org/img/wn/" + weatherRequest.getWeather()[0].getIcon() + "@2x.png").into(weatherIcon);
         } else {
             new MyAlertDialogBuilder(CityActivity.this,"Exception",getResources().getText(R.string.incorrect_name).toString()).build();
         }
