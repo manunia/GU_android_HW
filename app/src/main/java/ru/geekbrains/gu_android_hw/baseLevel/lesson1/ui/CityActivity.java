@@ -13,6 +13,7 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 public class CityActivity extends BaseActivity implements Constants {
 
     private EditText weatherDescription;
+    private EditText weatherIcon;
     private EditText cityTemperature;
     private EditText cityWindSpeed;
     private EditText cityPressure;
@@ -38,6 +39,7 @@ public class CityActivity extends BaseActivity implements Constants {
 
             cityName.setText(weatherRequest.getName());
             weatherDescription.setText(weatherRequest.getWeather()[0].getDescription());
+            weatherIcon.setText(weatherRequest.getWeather()[0].getIcon());
             cityTemperature.setText(String.format("%d", temperature));
             cityPressure.setText(String.format("%d", pressure));
             humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
@@ -49,6 +51,7 @@ public class CityActivity extends BaseActivity implements Constants {
 
     private void initFields() {
         weatherDescription = findViewById(R.id.description);
+        weatherIcon = findViewById(R.id.weather_icon);
         cityTemperature = findViewById(R.id.moscowTemperature);
         cityWindSpeed = findViewById(R.id.windSpeed);
         cityPressure = findViewById(R.id.pressure);

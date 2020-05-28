@@ -1,9 +1,16 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Wind implements Serializable {
+    @SerializedName("speed")
+    @Expose
     private float speed;
+    @SerializedName("deg")
+    @Expose
     private float deg;
 
 
