@@ -25,14 +25,12 @@ import java.util.regex.Pattern;
 
 import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 
 public class MainActivity extends BaseActivity implements Constants, NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,7 +40,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
 
     private MenuItem cityName;
 
-    private CityDataSource source;
+    private CitySource source;
 
     //проверяем введенное название города
     Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
@@ -54,7 +52,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         setContentView(R.layout.activity_main);
         toolbar = initToolbar();
 
-        initDataSource();
+        initList();
 
         initDrawer(toolbar);
     }
@@ -84,6 +82,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             @Override
             public boolean onQueryTextSubmit(String query) {
                 showWeatherFromRequest(query);
+                source.addCity(new City(query));
                 return true;
             }
 
@@ -104,7 +103,10 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             startActivityForResult(intent,SETTING_CODE);
         }
         if (id == R.id.action_about) {
-            Snackbar.make(toolbar, R.string.about_developer, Snackbar.LENGTH_LONG).show();
+            new MyAlertDialogBuilder(this,"About",getResources().getString(R.string.about_developer)).build();
+        }
+        if (id == R.id.action_clear) {
+            source.deleteAll();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -126,15 +128,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         tv.setError(null);
     }
 
-    private void initDataSource() {
-        source = new DataSourceBuilder().setResources(getResources()).build();
-
-        final DataChangableSource dataChangableSource = new ChangeData(source);
-        final ListAdapter adapter = initList(dataChangableSource);
-
-    }
-
-    private ListAdapter initList(final CityDataSource data){
+    private ListAdapter initList(){
         recyclerView = findViewById(R.id.recycler_view);
 
         // Эта установка служит для повышения производительности системы
@@ -144,8 +138,11 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        CityDao cityDao = App.getInstance().getCityDao();
+        source = new CitySource(cityDao);
+
         // Установим адаптер
-        ListAdapter adapter = new ListAdapter(data);
+        ListAdapter adapter = new ListAdapter(source,this);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this,LinearLayoutManager.VERTICAL);
