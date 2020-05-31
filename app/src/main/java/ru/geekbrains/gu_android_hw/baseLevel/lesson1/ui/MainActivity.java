@@ -35,11 +35,9 @@ import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 public class MainActivity extends BaseActivity implements Constants, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
-
     private RecyclerView recyclerView;
-
+    private ListAdapter adapter;
     private MenuItem cityName;
-
     private CitySource source;
 
     //проверяем введенное название города
@@ -107,6 +105,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         }
         if (id == R.id.action_clear) {
             source.deleteAll();
+            recreate();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -142,7 +141,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         source = new CitySource(cityDao);
 
         // Установим адаптер
-        ListAdapter adapter = new ListAdapter(source,this);
+        adapter = new ListAdapter(source,this);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this,LinearLayoutManager.VERTICAL);
@@ -152,7 +151,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, String name, int position) {
-                Snackbar.make(view,String.format("Позиция - %d", position),Snackbar.LENGTH_LONG).setAction("Action",null).show();
                 showWeatherFromRequest(name);
             }
         });
@@ -194,5 +192,20 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.remove_context:
+                City cityForRemove = source.getCities().get((int) adapter.getMenuPosition());
+                source.removeCity(cityForRemove.id);
+                adapter.notifyItemRemoved((int) adapter.getMenuPosition());
+                return true;
+
+        }
+
+        return super.onContextItemSelected(item);
     }
 }
