@@ -59,6 +59,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         City city = cities.get(i);
 
         viewHolder.cityName.setText(city.name);
+        viewHolder.cityTemp.setText(String.format("%d", city.temperature));
+        viewHolder.date.setText(city.weatherDate.toString());
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             menuPosition = i;
@@ -93,12 +95,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView cityName;
+        private TextView cityTemp;
+        private TextView date;
         View cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView;
             cityName = itemView.findViewById(R.id.itemCityName);
+            cityTemp = itemView.findViewById(R.id.itemCityTemper);
+            date = itemView.findViewById(R.id.itemCityDate);
         }
 
         public void setOnClickListener(final OnItemClickListener listener) {

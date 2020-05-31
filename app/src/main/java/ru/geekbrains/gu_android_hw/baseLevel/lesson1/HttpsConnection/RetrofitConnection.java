@@ -8,6 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -16,6 +19,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui.MyAlertDialogBuilder;
 
@@ -33,13 +38,17 @@ public class RetrofitConnection {
         openWeather = retrofit.create(OpenWeather.class);
     }
 
-    public void requestRetrofit(String city, String keyApi, Context context) {
+    public void requestRetrofit(String city, String keyApi, Context context, CitySource source) {
         String[] lang = String.valueOf(Locale.getDefault()).split("_");
         openWeather.loadWeather(city, "metric", keyApi, lang[0])
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
                         if (response.body() != null && response.isSuccessful()) {
+                            City newCity = new City(response.body().getName(),(int)response.body().getMain().getTemp());
+                            Calendar cal = new GregorianCalendar();
+                            newCity.weatherDate = cal.getTime();
+                            source.addCity(newCity);
                             Intent intent = new Intent("showCityActivity");
                             intent.putExtra(Constants.CREATE_CITY, response.body());
                             context.startActivity(intent);
