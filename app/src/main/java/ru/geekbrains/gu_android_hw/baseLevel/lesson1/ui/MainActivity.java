@@ -23,12 +23,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.regex.Pattern;
 
+import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.WeatherDataLoader;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
@@ -42,8 +43,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     private MenuItem cityName;
 
     private CityDataSource source;
-    private HttpsConnection connection;
-    private WeatherRequest weatherRequest;
 
     //проверяем введенное название города
     Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
@@ -164,16 +163,11 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
-        WeatherDataLoader dataLoader = new WeatherDataLoader(new WeatherDataLoader.DataLoadListener() {
-            @Override
-            public void onFinish(WeatherRequest param) {
-                Intent intent = new Intent("showCityActivity");
 
-                intent.putExtra(Constants.CREATE_CITY, param);
-                startActivity(intent);
-            }
-        });
-        dataLoader.loadData(name,MainActivity.this);
+        RetrofitConnection retrofitConnection = new RetrofitConnection();
+        retrofitConnection.initRetrofit();
+        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this);
+
     }
 
     @Override

@@ -5,9 +5,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#05CF4C</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/light_background</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppDarkTheme" parent="Theme.MaterialComponents"/>
+    <style name="AppDarkTheme" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="backgroundColor">#5CD2ED</item>
+    </style>
+
+
 
 </resources>
