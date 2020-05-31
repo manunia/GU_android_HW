@@ -1,6 +1,7 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,7 +81,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             @Override
             public boolean onQueryTextSubmit(String query) {
                 showWeatherFromRequest(query);
-                source.addCity(new City(query));
                 return true;
             }
 
@@ -158,11 +158,9 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
-
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
-        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this);
-
+        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this,source);
     }
 
     @Override
@@ -203,9 +201,8 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
                 source.removeCity(cityForRemove.id);
                 adapter.notifyItemRemoved((int) adapter.getMenuPosition());
                 return true;
-
         }
-
         return super.onContextItemSelected(item);
     }
+    
 }

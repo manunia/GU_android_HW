@@ -12,7 +12,11 @@ import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
 
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 
 public class CityActivity extends BaseActivity implements Constants {
@@ -50,6 +54,7 @@ public class CityActivity extends BaseActivity implements Constants {
             cityWindSpeed.setText(String.format("%d", (int)weatherRequest.getWind().getSpeed()));
             Picasso.get()
                     .load("http://openweathermap.org/img/wn/" + weatherRequest.getWeather()[0].getIcon() + "@4x.png").into(weatherIcon);
+
         } else {
             new MyAlertDialogBuilder(CityActivity.this,"Exception",getResources().getText(R.string.incorrect_name).toString()).build();
         }
@@ -63,7 +68,6 @@ public class CityActivity extends BaseActivity implements Constants {
         cityPressure = findViewById(R.id.pressure);
         cityName = findViewById(R.id.city_name);
         humidity = findViewById(R.id.textHumidity);
-
     }
 
 
