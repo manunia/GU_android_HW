@@ -27,8 +27,9 @@ public class App extends Application {
         db = Room.databaseBuilder(
                 getApplicationContext(),
                 CityDatabase.class,
-                "city_database"
-        ).allowMainThreadQueries() //Только для примеров и тестирования.
+                "city_database")
+                .allowMainThreadQueries() //Только для примеров и тестирования.
+                .fallbackToDestructiveMigration()// метод, который уничтожает все данные и воссоздаёт структуру с нуля
          .build();
     }
 
