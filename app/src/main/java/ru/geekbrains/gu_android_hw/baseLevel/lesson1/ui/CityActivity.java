@@ -1,22 +1,16 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.squareup.picasso.Picasso;
 
 import ru.geekbrains.gu_android_hw.R;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
 
 public class CityActivity extends BaseActivity implements Constants {
@@ -29,6 +23,8 @@ public class CityActivity extends BaseActivity implements Constants {
     private EditText cityName;
     private EditText humidity;
 
+    private TextView celcium;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +36,7 @@ public class CityActivity extends BaseActivity implements Constants {
     }
 
     private void getDataFromMainActivity() {
+        celcium.setText(units);
         WeatherRequest weatherRequest = (WeatherRequest) getIntent().getExtras().getSerializable(CREATE_CITY);
 
         if (weatherRequest != null) {
@@ -68,6 +65,8 @@ public class CityActivity extends BaseActivity implements Constants {
         cityPressure = findViewById(R.id.pressure);
         cityName = findViewById(R.id.city_name);
         humidity = findViewById(R.id.textHumidity);
+
+        celcium = findViewById(R.id.celsium);
     }
 
 

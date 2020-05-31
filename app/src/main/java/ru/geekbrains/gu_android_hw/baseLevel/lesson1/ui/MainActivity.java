@@ -160,7 +160,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     private void showWeatherFromRequest(String name) {
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
-        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this,source);
+        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,unitsForRequest,MainActivity.this,source);
     }
 
     @Override
@@ -204,5 +204,5 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         }
         return super.onContextItemSelected(item);
     }
-    
+
 }

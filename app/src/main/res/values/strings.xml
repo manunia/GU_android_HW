@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">GU_android_HW</string>
     <string name="city_moscow">Moscow</string>
+    <string name="unit" translatable="false">%1$s</string>
+    <string name="g" translatable="false">\u00b0</string>
     <string name="gradus">\u2103</string>
     <string name="farengeit">\u2109</string>
     <string name="city_kazan">Kazan</string>

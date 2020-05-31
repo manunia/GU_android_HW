@@ -38,9 +38,9 @@ public class RetrofitConnection {
         openWeather = retrofit.create(OpenWeather.class);
     }
 
-    public void requestRetrofit(String city, String keyApi, Context context, CitySource source) {
+    public void requestRetrofit(String city, String keyApi, String units, Context context, CitySource source) {
         String[] lang = String.valueOf(Locale.getDefault()).split("_");
-        openWeather.loadWeather(city, "metric", keyApi, lang[0])
+        openWeather.loadWeather(city, units, keyApi, lang[0])
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {

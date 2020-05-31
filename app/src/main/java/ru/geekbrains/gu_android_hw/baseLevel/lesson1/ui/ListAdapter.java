@@ -1,6 +1,7 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
