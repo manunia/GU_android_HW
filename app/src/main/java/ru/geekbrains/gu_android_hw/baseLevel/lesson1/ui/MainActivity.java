@@ -41,9 +41,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     private MenuItem cityName;
     private CitySource source;
 
-    //проверяем введенное название города
-    Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,23 +105,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             recreate();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void validate(TextView tv, Pattern check, String s) {
-        String value = tv.getText().toString();
-        if (check.matcher(value).matches()) {
-            hideError(tv);
-        } else {
-            showError(tv, s);
-        }
-    }
-
-    private void showError(TextView tv, String s) {
-        tv.setError(s);
-    }
-
-    private void hideError(TextView tv) {
-        tv.setError(null);
     }
 
     private ListAdapter initList(){
