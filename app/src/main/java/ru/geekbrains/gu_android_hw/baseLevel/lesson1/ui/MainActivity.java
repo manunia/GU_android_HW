@@ -1,7 +1,13 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +35,7 @@ import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.broadcast.BattaryLevelMsgReceiver;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
@@ -40,6 +47,10 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     private ListAdapter adapter;
     private MenuItem cityName;
     private CitySource source;
+    private BroadcastReceiver batteryReciever;
+
+    public static final String CHANNEL_ID = "2";
+    public static final String CHANNEL_NAME = "name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,26 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         initList();
 
         initDrawer(toolbar);
+
+        batteryReciever = new BattaryLevelMsgReceiver();
+        initNotificationChannel();
+        //регистрация ресивера
+        registerReceiver(batteryReciever, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+
+    }
+
+    private void initNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(batteryReciever);
     }
 
     private void initDrawer(Toolbar toolbar) {
