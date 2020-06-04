@@ -1,18 +1,12 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,17 +22,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.regex.Pattern;
-
 import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.broadcast.BattaryLevelMsgReceiver;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.servicies.BroadcastMsgReceiver;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.servicies.MyNotificationChannel;
 
 public class MainActivity extends BaseActivity implements Constants, NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,7 +56,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
 
         initDrawer(toolbar);
 
-        batteryReciever = new BattaryLevelMsgReceiver();
+        batteryReciever = new BroadcastMsgReceiver("Small battary level");
         initNotificationChannel();
         //регистрация ресивера
         registerReceiver(batteryReciever, new IntentFilter(Intent.ACTION_BATTERY_LOW));
@@ -71,11 +64,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void initNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-        }
+        new MyNotificationChannel().init(MainActivity.this, CHANNEL_ID, CHANNEL_NAME);
     }
 
     @Override

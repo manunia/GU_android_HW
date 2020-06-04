@@ -7,7 +7,7 @@ import androidx.room.TypeConverters;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DateConverter;
 
 
-@Database(entities = {City.class}, version = 8)
+@Database(entities = {City.class}, version = 9)
 @TypeConverters(DateConverter.class)
 public abstract class CityDatabase extends RoomDatabase {
     public abstract CityDao getCityDao();
