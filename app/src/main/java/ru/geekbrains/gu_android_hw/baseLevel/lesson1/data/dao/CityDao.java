@@ -27,7 +27,7 @@ public interface CityDao {
     @Query("DELETE FROM city WHERE id = :id")
     void deleteCityById(long id);
 
-    @Query("SELECT DISTINCT * FROM city DESK")//выводим все уникальные значения из таблицы и в обратном порядке
+    @Query("SELECT * FROM city ORDER BY city.name DESC")//выводим все уникальные значения из таблицы и в обратном порядке
     List<City> getAllCities();
 
     @Query("SELECT * FROM city WHERE id = :id")
