@@ -30,7 +30,7 @@
     <string name="about">about</string>
     <string name="about_developer">developer Maria L\ncreated: 2020</string>
     <string name="menu_home">home</string>
-    <string name="menu_gallery">gallery</string>
+    <string name="menu_map">Geo Location</string>
     <string name="menu_slideshow">slideshow</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
@@ -41,6 +41,7 @@
     <string name="update">Update</string>
     <string name="remove">Remove</string>
     <string name="clear_all">Clear all</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
