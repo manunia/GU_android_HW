@@ -1,32 +1,37 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import ru.geekbrains.gu_android_hw.R;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 
 //адаптер
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private CityDataSource datasource;
-
+    private CitySource datasource;
+    private Activity activity;
+    private long menuPosition;
     private OnItemClickListener itemClickListener;
 
-    public CityDataSource getDatasource() {
+    public CitySource getDatasource() {
         return datasource;
     }
 
-    public ListAdapter(CityDataSource datasource) {
+    public ListAdapter(CitySource datasource, Activity activity) {
         this.datasource = datasource;
+        this.activity = activity;
     }
 
     //создаем новый элемент ui
@@ -51,15 +56,32 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.ViewHolder viewHolder, int i) {
         //получаем элемент из источника данных
-        City city = datasource.getCity(i);
-        viewHolder.setData(city.getName(),city.getPicture());
+        List<City> cities = datasource.getCities();
+        City city = cities.get(i);
+
+        viewHolder.cityName.setText(city.name);
+        viewHolder.cityTemp.setText(String.format("%d", city.temperature));
+        viewHolder.date.setText(city.weatherDate.toString());
+
+        viewHolder.cardView.setOnLongClickListener(view -> {
+            menuPosition = i;
+            return false;
+        });
+        if (activity != null) {
+            activity.registerForContextMenu(viewHolder.cardView);
+        }
+
         Log.d("SocnetAdapter", "onBindViewHolder");
     }
 
     //возвращаем размер массива данных
     @Override
     public int getItemCount() {
-        return datasource.size();
+        return (int)datasource.getCountCities();
+    }
+
+    public long getMenuPosition() {
+        return menuPosition;
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
@@ -74,16 +96,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView cityName;
-        private ImageView image;
+        private TextView cityTemp;
+        private TextView date;
+        View cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView;
             cityName = itemView.findViewById(R.id.itemCityName);
-            image = itemView.findViewById(R.id.cityImage);
+            cityTemp = itemView.findViewById(R.id.itemCityTemper);
+            date = itemView.findViewById(R.id.itemCityDate);
         }
 
         public void setOnClickListener(final OnItemClickListener listener) {
-            image.setOnClickListener(new View.OnClickListener() {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Получаем позицию адаптера
@@ -91,22 +117,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     // Проверяем ее на корректность
                     if (adapterPosition == RecyclerView.NO_POSITION) return;
 
-                    listener.onItemClick(v, getDatasource().getCity(adapterPosition).getName(), adapterPosition);
+                    listener.onItemClick(v, getDatasource().getCities().get(adapterPosition).getName(), adapterPosition);
                 }
             });
         }
 
-        public void setData(String name, int picture) {
-            getImage().setImageResource(picture);
-            getCityName().setText(name);
-        }
 
-        public ImageView getImage() {
-            return image;
-        }
-
-        public TextView getCityName() {
-            return cityName;
-        }
     }
 }

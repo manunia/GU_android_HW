@@ -34,6 +34,11 @@
     <string name="navigation_drawer_close">close</string>
     <string name="incorrect_name">Города с таким названием не существует!</string>
     <string name="button">ПОНЯТНО</string>
+    <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
+    <string name="update">Изменить</string>
+    <string name="remove">Переместить</string>
+    <string name="clear_all">Clear all</string>
 
 
 </resources>

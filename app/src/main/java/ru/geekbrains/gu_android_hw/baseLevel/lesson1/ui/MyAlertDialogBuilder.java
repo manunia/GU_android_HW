@@ -29,12 +29,10 @@ public class MyAlertDialogBuilder {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "Кнопка нажата", Toast.LENGTH_SHORT).show();
+
                             }
                         });
         AlertDialog alert = builder.create();
         alert.show();
-        Toast.makeText(context, "Диалог открыт", Toast.LENGTH_SHORT).show();
-
     }
 }

@@ -30,5 +30,14 @@ public class SettingActivity extends BaseActivity implements Constants {
             }
         });
 
+        switchCelsium.setChecked(isCelsium());
+        switchCelsium.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setIsCelsiumUnit(isChecked);
+                recreate();
+            }
+        });
+
     }
 }

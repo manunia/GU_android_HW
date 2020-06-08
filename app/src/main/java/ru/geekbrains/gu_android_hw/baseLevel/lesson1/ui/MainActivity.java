@@ -1,11 +1,12 @@
 package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,31 +22,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.regex.Pattern;
-
 import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.Constants;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.HttpsConnection;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.CityDataSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.DataChangableSource;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.ChangeData;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.implementation.DataSourceBuilder;
-import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.model.WeatherRequest;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.City;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.servicies.BroadcastMsgReceiver;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.servicies.MyNotificationChannel;
 
 public class MainActivity extends BaseActivity implements Constants, NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
-
     private RecyclerView recyclerView;
-
+    private ListAdapter adapter;
     private MenuItem cityName;
+    private CitySource source;
+    private BroadcastReceiver batteryReciever;
 
-    private CityDataSource source;
-
-    //проверяем введенное название города
-    Pattern checkInputCity = Pattern.compile("^[A-Z,А-Я][a-z,а-я]{2,}$");
+    public static final String CHANNEL_ID = "2";
+    public static final String CHANNEL_NAME = "name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +52,25 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         setContentView(R.layout.activity_main);
         toolbar = initToolbar();
 
-        initDataSource();
+        initList();
 
         initDrawer(toolbar);
+
+        batteryReciever = new BroadcastMsgReceiver("Small battary level");
+        initNotificationChannel();
+        //регистрация ресивера
+        registerReceiver(batteryReciever, new IntentFilter(Intent.ACTION_BATTERY_LOW));
+
+    }
+
+    private void initNotificationChannel() {
+        new MyNotificationChannel().init(MainActivity.this, CHANNEL_ID, CHANNEL_NAME);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(batteryReciever);
     }
 
     private void initDrawer(Toolbar toolbar) {
@@ -104,37 +118,16 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             startActivityForResult(intent,SETTING_CODE);
         }
         if (id == R.id.action_about) {
-            Snackbar.make(toolbar, R.string.about_developer, Snackbar.LENGTH_LONG).show();
+            new MyAlertDialogBuilder(this,"About",getResources().getString(R.string.about_developer)).build();
+        }
+        if (id == R.id.action_clear) {
+            source.deleteAll();
+            recreate();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void validate(TextView tv, Pattern check, String s) {
-        String value = tv.getText().toString();
-        if (check.matcher(value).matches()) {
-            hideError(tv);
-        } else {
-            showError(tv, s);
-        }
-    }
-
-    private void showError(TextView tv, String s) {
-        tv.setError(s);
-    }
-
-    private void hideError(TextView tv) {
-        tv.setError(null);
-    }
-
-    private void initDataSource() {
-        source = new DataSourceBuilder().setResources(getResources()).build();
-
-        final DataChangableSource dataChangableSource = new ChangeData(source);
-        final ListAdapter adapter = initList(dataChangableSource);
-
-    }
-
-    private ListAdapter initList(final CityDataSource data){
+    private ListAdapter initList(){
         recyclerView = findViewById(R.id.recycler_view);
 
         // Эта установка служит для повышения производительности системы
@@ -144,8 +137,11 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        CityDao cityDao = App.getInstance().getCityDao();
+        source = new CitySource(cityDao);
+
         // Установим адаптер
-        ListAdapter adapter = new ListAdapter(data);
+        adapter = new ListAdapter(source,this);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this,LinearLayoutManager.VERTICAL);
@@ -155,7 +151,6 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         adapter.setItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, String name, int position) {
-                Snackbar.make(view,String.format("Позиция - %d", position),Snackbar.LENGTH_LONG).setAction("Action",null).show();
                 showWeatherFromRequest(name);
             }
         });
@@ -163,11 +158,9 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
     }
 
     private void showWeatherFromRequest(String name) {
-
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
-        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,MainActivity.this);
-
+        retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,unitsForRequest,MainActivity.this,source);
     }
 
     @Override
@@ -198,4 +191,18 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
             super.onBackPressed();
         }
     }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.remove_context:
+                City cityForRemove = source.getCities().get((int) adapter.getMenuPosition());
+                source.removeCity(cityForRemove.id);
+                adapter.notifyItemRemoved((int) adapter.getMenuPosition());
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
 }
