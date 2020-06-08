@@ -5,8 +5,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,11 +19,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -28,6 +38,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Marker currentMarker;
+    private List<Marker> markers = new ArrayList<>();
+
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,5 +142,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         currentMarker = mMap.addMarker(new MarkerOptions().position(sydney).title("Текущая позиция"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                getAddress(latLng);
+                addMarker(latLng);
+            }
+        });
     }
+
+    private void addMarker(LatLng location) {
+        String title = Integer.toString(markers.size());
+        Marker marker = mMap.addMarker(new MarkerOptions()
+        .position(location)
+        .title(title)
+        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)));
+        markers.add(marker);
+    }
+
+    // Получаем адрес по координатам
+    private void getAddress(final LatLng location){
+        final Geocoder geocoder = new Geocoder(this);
+        // Поскольку Geocoder работает по интернету, создаём отдельный поток
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
+                    address = addresses.get(0).getAddressLine(0);
+                    String cityName = addresses.get(0).getLocality();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }
