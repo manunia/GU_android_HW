@@ -30,7 +30,10 @@ import java.util.List;
 
 import ru.geekbrains.gu_android_hw.BuildConfig;
 import ru.geekbrains.gu_android_hw.R;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.App;
 import ru.geekbrains.gu_android_hw.baseLevel.lesson1.HttpsConnection.RetrofitConnection;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CityDao;
+import ru.geekbrains.gu_android_hw.baseLevel.lesson1.data.dao.CitySource;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -41,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<Marker> markers = new ArrayList<>();
 
     private String address;
+    private CitySource source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         requestPermissions();
+
+        initDataBase();
+    }
+
+    private void initDataBase() {
+        CityDao cityDao = App.getInstance().getCityDao();
+        source = new CitySource(cityDao);
     }
 
     private void requestPermissions() {
@@ -173,11 +184,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     address = addresses.get(0).getAddressLine(0);
                     String cityName = addresses.get(0).getLocality();
 
+                    showWeatherFromRequest(cityName);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void showWeatherFromRequest(String cityName) {
+        RetrofitConnection retrofitConnection = new RetrofitConnection();
+        retrofitConnection.initRetrofit();
+        retrofitConnection.requestRetrofit(cityName, BuildConfig.WEATHER_API_KEY,"metric", MapsActivity.this,source);
     }
 
 }
