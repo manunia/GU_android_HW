@@ -15,7 +15,7 @@ public interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCity(City city);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateCity(City city);
 
     @Delete

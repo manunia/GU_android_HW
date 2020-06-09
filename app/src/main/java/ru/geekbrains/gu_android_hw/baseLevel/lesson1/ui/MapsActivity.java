@@ -197,6 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
         retrofitConnection.requestRetrofit(cityName, BuildConfig.WEATHER_API_KEY,"metric", MapsActivity.this,source);
+        source.loadCities();
     }
 
 }

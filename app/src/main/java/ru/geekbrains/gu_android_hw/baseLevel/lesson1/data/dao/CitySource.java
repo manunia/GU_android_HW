@@ -19,6 +19,17 @@ public class CitySource {
         return cities;
     }
 
+    public boolean isCityExists(String name) {
+        if (cities != null) {
+            for (City c : cities) {
+                if (c.name.equals(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void loadCities() {
         cities = cityDao.getAllCities();
     }
