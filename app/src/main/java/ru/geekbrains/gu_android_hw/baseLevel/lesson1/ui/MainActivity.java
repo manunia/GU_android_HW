@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         return adapter;
     }
 
-    private void showWeatherFromRequest(String name) {
+    public void showWeatherFromRequest(String name) {
         RetrofitConnection retrofitConnection = new RetrofitConnection();
         retrofitConnection.initRetrofit();
         retrofitConnection.requestRetrofit(name, BuildConfig.WEATHER_API_KEY,unitsForRequest,MainActivity.this,source);
@@ -176,6 +176,11 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         int id = item.getItemId();
         if (id == R.id.nav_home) {
             Snackbar.make(toolbar, "home", Snackbar.LENGTH_LONG).show();
+            onBackPressed();
+        }
+        if (id == R.id.nav_map) {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivityForResult(intent,MAP_CODE);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -204,5 +209,4 @@ public class MainActivity extends BaseActivity implements Constants, NavigationV
         }
         return super.onContextItemSelected(item);
     }
-
 }

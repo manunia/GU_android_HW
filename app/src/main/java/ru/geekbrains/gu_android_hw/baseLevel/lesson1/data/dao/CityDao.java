@@ -15,7 +15,7 @@ public interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCity(City city);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateCity(City city);
 
     @Delete
@@ -27,7 +27,7 @@ public interface CityDao {
     @Query("DELETE FROM city WHERE id = :id")
     void deleteCityById(long id);
 
-    @Query("SELECT * FROM city ORDER BY city.name DESC")//выводим все уникальные значения из таблицы и в обратном порядке
+    @Query("SELECT * FROM city")
     List<City> getAllCities();
 
     @Query("SELECT * FROM city WHERE id = :id")

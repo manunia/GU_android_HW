@@ -76,6 +76,10 @@ public class RetrofitConnection {
         City newCity = new City(response.body().getName(),(int)response.body().getMain().getTemp());
         Calendar cal = new GregorianCalendar();
         newCity.weatherDate = cal.getTime();
-        source.addCity(newCity);
+        if (source.isCityExists(response.body().getName())) {
+            source.updateCity(newCity);
+        } else {
+            source.addCity(newCity);
+        }
     }
 }
