@@ -2,7 +2,6 @@ package ru.geekbrains.gu_android_hw.baseLevel.lesson1.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 

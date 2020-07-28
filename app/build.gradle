@@ -75,6 +75,13 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// ®explicitly depend on RxJava's latest version for bug fixes and new features.
+// (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation  'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

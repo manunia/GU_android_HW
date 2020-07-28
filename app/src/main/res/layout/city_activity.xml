@@ -167,6 +167,8 @@
 
     </TableRow>
 
+    <include layout="@layout/daily_weather"/>
+
 
 </TableLayout>
 
